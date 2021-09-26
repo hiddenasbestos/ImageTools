@@ -52,4 +52,6 @@ Converts an image file into a background erasing mask followed by a pixel image 
 
 * Each byte of output data corresponds to 8 pixels with the most significant bit representing the left-side of the image.
 
+* The border on the left (when shifting) and right (when the source width is not an exact multiple of 8) is assumed to contain pixels of index 0.
+
 
