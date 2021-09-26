@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{2a5e5802-6a41-4a7b-bd34-a6a5b1be53ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty">
+      <UniqueIdentifier>{ccec3d2b-86ab-4200-a139-2b3c6ad10d3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty\lpng1637">
+      <UniqueIdentifier>{ca0449ec-5c39-48e9-8add-938eb6a1d803}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty\zlib-1.2.11">
+      <UniqueIdentifier>{651a353d-dafc-4f1c-bdc6-f240660531b4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\ImageTools.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\utils.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\mask.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\png.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\pngerror.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\pngget.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\pngmem.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\pngpread.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\pngread.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\pngrio.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\pngrtran.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\pngrutil.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\pngset.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\pngtrans.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\pngwio.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\pngwrite.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\pngwtran.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\lpng1637\pngwutil.c">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\zlib-1.2.11\adler32.c">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\zlib-1.2.11\compress.c">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\zlib-1.2.11\crc32.c">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\zlib-1.2.11\deflate.c">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\zlib-1.2.11\infback.c">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\zlib-1.2.11\inffast.c">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\zlib-1.2.11\inflate.c">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\zlib-1.2.11\inftrees.c">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\zlib-1.2.11\trees.c">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\zlib-1.2.11\uncompr.c">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\zlib-1.2.11\zutil.c">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\cPNG.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Image.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FileReader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Loader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\utils.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\lpng1637\png.h">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\lpng1637\pngconf.h">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\lpng1637\pngdebug.h">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\lpng1637\pnginfo.h">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\lpng1637\pngpriv.h">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\lpng1637\pngstruct.h">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\lpng1637\pnglibconf.h">
+      <Filter>3rdParty\lpng1637</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\zlib-1.2.11\crc32.h">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\zlib-1.2.11\deflate.h">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\zlib-1.2.11\inffast.h">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\zlib-1.2.11\inffixed.h">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\zlib-1.2.11\inflate.h">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\zlib-1.2.11\inftrees.h">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\zlib-1.2.11\trees.h">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\zlib-1.2.11\zconf.h">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\zlib-1.2.11\zlib.h">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\zlib-1.2.11\zutil.h">
+      <Filter>3rdParty\zlib-1.2.11</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\cPNG.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Loader.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImageInfo.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Image.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PixelFormat.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FileReader.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

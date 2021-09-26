@@ -1,0 +1,90 @@
+/*
+
+Copyright (c) 2021 David Walters
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+
+#pragma once
+
+#include <cstdint>
+#include <string>
+
+class Image;
+struct ImageInfo;
+
+
+//------------------------------------------------------------------------------
+// Utility Functions
+//------------------------------------------------------------------------------
+
+// Compute the next power-of-two for a given value.
+uint32_t NextPowerTwo( uint32_t n );
+
+// Detect a hex prefix and return a character offset after it. Zero if not found.
+int DetectHexPrefix( const char* pStr );
+
+// Helper to print a ruler. columns must be a multiple of 10 -- e.g. 40 or 80
+void PrintRuler( int columns );
+
+// Print all of the command line arguments with their index.
+void DebugCmdArgs( int argc, char** argv );
+
+// Find a matching argument in the command line arguments (skips index 0).
+// Case insensitive. If found, returns index, if not returns -1.
+int FindArg( const char* pArg, int argc, char** argv );
+
+// Parse a string, detecting a size suffix (KB, MBIT, etc.) and return a byte amount.
+// Supports hexadecimal mode. Returns -1 on invalid number.
+int64_t ParseSizeWithSuffix( const char* pStr );
+
+// Parse a positive integer value, supports hexadecimal.
+// Returns -1 on invalid number.
+int ParseValue( const char* pStr, int iLimit );
+
+// Testing for ParseSizeWithSuffix
+void TestParsingSizes();
+
+// Print hello message + help for a specific tool.
+// NOTE: This function is implemented in ImageTools.cpp
+void PrintHelp( const char* pName );
+
+// Print a standard error message to stdout.
+void PrintError( const char* pName, ... );
+
+// Print a standard info message to stdout. Doesn't end with an extra newline.
+void Info( const char* pName, ... );
+
+// Helper to load an image. Return 0 on success, 1 on error.
+int LoadImage( const char* pInputName, Image& image, ImageInfo& imageInfo );
+
+// Print an image as ASCII, be careful with larger sizes!
+void PrintImage( Image& image );
+
+// Write an image to a file, Return 0 on success, 1 on error. 
+int WriteImage_Fbin( Image& image, const char* pOutputName, std::string& header, bool bAppend );
+
+// Write a flexible header
+void WriteOutHeader( Image& image, std::string& header, FILE* fp_out );
+
+// Write an image to a standard stream
+void WriteImage( Image& image, FILE* fp_out );
+
+//==============================================================================

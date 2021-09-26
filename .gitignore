@@ -1,0 +1,11 @@
+*.db
+*.pdb
+*.opendb
+*.lnk
+*.dll
+
+~*
+
+.vs/
+obj/
+x64/

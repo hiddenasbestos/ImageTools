@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="3rdParty\lpng1637\png.c" />
+    <ClCompile Include="3rdParty\lpng1637\pngerror.c" />
+    <ClCompile Include="3rdParty\lpng1637\pngget.c" />
+    <ClCompile Include="3rdParty\lpng1637\pngmem.c" />
+    <ClCompile Include="3rdParty\lpng1637\pngpread.c" />
+    <ClCompile Include="3rdParty\lpng1637\pngread.c" />
+    <ClCompile Include="3rdParty\lpng1637\pngrio.c" />
+    <ClCompile Include="3rdParty\lpng1637\pngrtran.c" />
+    <ClCompile Include="3rdParty\lpng1637\pngrutil.c" />
+    <ClCompile Include="3rdParty\lpng1637\pngset.c" />
+    <ClCompile Include="3rdParty\lpng1637\pngtrans.c" />
+    <ClCompile Include="3rdParty\lpng1637\pngwio.c" />
+    <ClCompile Include="3rdParty\lpng1637\pngwrite.c" />
+    <ClCompile Include="3rdParty\lpng1637\pngwtran.c" />
+    <ClCompile Include="3rdParty\lpng1637\pngwutil.c" />
+    <ClCompile Include="Source\cPNG.cpp" />
+    <ClCompile Include="Source\Image.cpp" />
+    <ClCompile Include="Source\Loader.cpp" />
+    <ClCompile Include="Source\ImageTools.cpp" />
+    <ClCompile Include="Source\FileReader.cpp" />
+    <ClCompile Include="Source\mask.cpp" />
+    <ClCompile Include="Source\utils.cpp" />
+    <ClCompile Include="3rdParty\zlib-1.2.11\adler32.c" />
+    <ClCompile Include="3rdParty\zlib-1.2.11\compress.c" />
+    <ClCompile Include="3rdParty\zlib-1.2.11\crc32.c" />
+    <ClCompile Include="3rdParty\zlib-1.2.11\deflate.c" />
+    <ClCompile Include="3rdParty\zlib-1.2.11\infback.c" />
+    <ClCompile Include="3rdParty\zlib-1.2.11\inffast.c" />
+    <ClCompile Include="3rdParty\zlib-1.2.11\inflate.c" />
+    <ClCompile Include="3rdParty\zlib-1.2.11\inftrees.c" />
+    <ClCompile Include="3rdParty\zlib-1.2.11\trees.c" />
+    <ClCompile Include="3rdParty\zlib-1.2.11\uncompr.c" />
+    <ClCompile Include="3rdParty\zlib-1.2.11\zutil.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="3rdParty\lpng1637\png.h" />
+    <ClInclude Include="3rdParty\lpng1637\pngconf.h" />
+    <ClInclude Include="3rdParty\lpng1637\pngdebug.h" />
+    <ClInclude Include="3rdParty\lpng1637\pnginfo.h" />
+    <ClInclude Include="3rdParty\lpng1637\pnglibconf.h" />
+    <ClInclude Include="3rdParty\lpng1637\pngpriv.h" />
+    <ClInclude Include="3rdParty\lpng1637\pngstruct.h" />
+    <ClInclude Include="Source\cPNG.h" />
+    <ClInclude Include="Source\Image.h" />
+    <ClInclude Include="Source\ImageInfo.h" />
+    <ClInclude Include="Source\Loader.h" />
+    <ClInclude Include="Source\FileReader.h" />
+    <ClInclude Include="Source\PixelFormat.h" />
+    <ClInclude Include="Source\utils.h" />
+    <ClInclude Include="3rdParty\zlib-1.2.11\crc32.h" />
+    <ClInclude Include="3rdParty\zlib-1.2.11\deflate.h" />
+    <ClInclude Include="3rdParty\zlib-1.2.11\inffast.h" />
+    <ClInclude Include="3rdParty\zlib-1.2.11\inffixed.h" />
+    <ClInclude Include="3rdParty\zlib-1.2.11\inflate.h" />
+    <ClInclude Include="3rdParty\zlib-1.2.11\inftrees.h" />
+    <ClInclude Include="3rdParty\zlib-1.2.11\trees.h" />
+    <ClInclude Include="3rdParty\zlib-1.2.11\zconf.h" />
+    <ClInclude Include="3rdParty\zlib-1.2.11\zlib.h" />
+    <ClInclude Include="3rdParty\zlib-1.2.11\zutil.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{6F946F69-1664-46A1-8DF5-7D8189B1281F}</ProjectGuid>
+    <RootNamespace>ImageTools</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)\Bin64\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\zlib-1.2.11\;$(SolutionDir)3rdParty\lpng1637\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\zlib-1.2.11\;$(SolutionDir)3rdParty\lpng1637\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
