@@ -27,7 +27,15 @@ SOFTWARE.
 
 #include "Image.h"
 
-Image::Image() : _pData( nullptr )
+Image::Image() : 
+	
+	_pData( nullptr ),
+
+	_width( 0 ),
+	_height( 0 ),
+	_pitch( 0 ),
+	_stride( 0 )
+
 {
 	//
 }
@@ -101,6 +109,55 @@ void Image::Plot( int x, int y, uint32_t data )
 		}
 		break;
 
+	case PixelFormat::ATART_ST_M0:
+		{
+			// ... select pixel within the 16-pixel plane.
+			uint16_t block = ( x >> 4 );
+			uint16_t mask = 1 << ( x & 0xF );
+
+			// ... offset to first bit-plane
+			offset = ( block * 8 ) + ( y * _pitch );
+			uint16_t* p = reinterpret_cast<uint16_t*>( &( _pData[ offset ] ) );
+			
+			// ... set/clear bit planes
+			if ( data & 1 ) { p[ 0 ] |= mask; }			else { p[ 0 ] &= ~mask; }
+			if ( data & 2 ) { p[ 1 ] |= mask; }			else { p[ 1 ] &= ~mask; }
+			if ( data & 4 ) { p[ 2 ] |= mask; }			else { p[ 2 ] &= ~mask; }
+			if ( data & 8 ) { p[ 3 ] |= mask; }			else { p[ 3 ] &= ~mask; }
+		}
+		break;
+
+	case PixelFormat::ATART_ST_M1:
+		{
+			// ... select pixel within the 16-pixel plane.
+			uint16_t block = ( x >> 4 );
+			uint16_t mask = 1 << ( x & 0xF );
+
+			// ... offset to first bit-plane
+			offset = ( block * 4 ) + ( y * _pitch );
+			uint16_t* p = reinterpret_cast<uint16_t*>( &( _pData[ offset ] ) );
+
+			// ... set/clear bit planes
+			if ( data & 1 ) { p[ 0 ] |= mask; }			else { p[ 0 ] &= ~mask; }
+			if ( data & 2 ) { p[ 1 ] |= mask; }			else { p[ 1 ] &= ~mask; }
+		}
+		break;
+
+	case PixelFormat::ATART_ST_M2:
+		{
+			// ... select pixel within the 16-pixel plane.
+			uint16_t block = ( x >> 4 );
+			uint16_t mask = 1 << ( x & 0xF );
+
+			// ... offset to bit-plane
+			offset = ( block * 2 ) + ( y * _pitch );
+			uint16_t* p = reinterpret_cast<uint16_t*>( &( _pData[ offset ] ) );
+
+			// ... set/clear bit plane
+			if ( data & 1 ) { p[ 0 ] |= mask; }	else { p[ 0 ] &= ~mask; }
+		}
+		break;
+
 	}
 }
 
@@ -165,6 +222,13 @@ uint32_t Image::Peek( int x, int y ) const
 		}
 		break;
 
+	default:
+	case PixelFormat::ATART_ST_M0:
+	case PixelFormat::ATART_ST_M1:
+	case PixelFormat::ATART_ST_M2:
+		// todo
+		break;
+
 	}
 
 	return data;
@@ -190,24 +254,44 @@ void Image::Create( PixelFormat fmt, uint16_t width, uint16_t height )
 	
 	case PixelFormat::PACKED_1:
 		_pitch = ( width + 7 ) / 8;
+		_stride = _pitch * 8;
 		break;
 	
 	case PixelFormat::PACKED_4:
 		_pitch = ( width + 1 ) / 2;
+		_stride = _pitch * 2;
 		break;
 	
 	case PixelFormat::CHUNKY_8:
 		_pitch = width;
+		_stride = width;
 		break;
 	
 	case PixelFormat::CHUNKY_16:
 		_pitch = width * 2;
+		_stride = width;
 		break;
 	
 	case PixelFormat::CHUNKY_32:
 		_pitch = width * 4;
+		_stride = width;
 		break;
-	
+
+	case  PixelFormat::ATART_ST_M0:
+		_pitch = ( ( width + 15 ) / 16 ) * 8;
+		_stride = _pitch * 2;
+		break;
+
+	case  PixelFormat::ATART_ST_M1:
+		_pitch = ( ( width + 15 ) / 16 ) * 4;
+		_stride = _pitch * 2;
+		break;
+
+	case  PixelFormat::ATART_ST_M2:
+		_pitch = ( ( width + 15 ) / 16 ) * 2;
+		_stride = _pitch * 2;
+		break;
+
 	}
 
 	uint32_t uByteCount;

@@ -43,4 +43,13 @@ enum class PixelFormat
 	// Chunky 4 byte pixels
 	CHUNKY_32,
 
+	// Atari ST mode 0 (low resolution). 64-bit planar (16 pixels x 4 planes), big-endian
+	ATART_ST_M0,
+
+	// Atari ST mode 1 (medium resolution). 32-bit planar (16 pixels x 2 planes), big-endian
+	ATART_ST_M1,
+
+	// Atari ST mode 2 (high resolution). 16-bit planar (16 pixels x 1 planes), big-endian
+	ATART_ST_M2,
+
 };

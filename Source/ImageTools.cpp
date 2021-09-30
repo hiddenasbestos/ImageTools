@@ -55,7 +55,7 @@ static Tool gTools[] =
 	//-----------------
 
 	{
-		"mask", Mask, "Extract a bit mask from an image.", "<input> <output> [-index I] [-not] [-shift R] [-append]\n\t[-H###]",
+		"mask", Mask, "Extract a bit mask from an image.", "<input> <output> [-index I] [-not] [-shift R] [-append]\n\t[-H###] [-pf format]",
 		"  <input>      An image file to read. (Indexed .PNG only)\n\n"
 		"  <output>     The output file.\n\n"
 		"  -index I     Specify the index of pixels to extract. Default 0.\n"
@@ -63,10 +63,20 @@ static Tool gTools[] =
 		"  -shift R     Shift output to the right by R pixels.\n"
 		"  -append      Append to the output file, rather than overwriting it.\n\n"
 		"  -H###        Add a header. ### is a string of codes as follows:\n\n"
-		"    1          Codes following are 1 byte in size (default).\n"
+		"    1          Byte mode (default).\n"
+		"    2          Word mode - 2 bytes per entity.\n"
+		"    L          Use little endian byte order.\n"
+		"    B          Use big endian byte order (default).\n"
 		"    w          Width of the output in pixels.\n"
-		"    c          Width of the output in characters (8 pixel blocks)\n"
+		"    p          Pitch of the output in bytes(1) or words(2)\n"
 		"    h          Height of the output in pixels.\n"
+		"    z          Write zero byte(1) or word(2).\n\n"
+		"  -pf FMT      Select the pixel format for the output. Default is \"1BPP\"\n\n"
+		"  The following pixel formats are supported:\n\n"
+		"    1BPP       8 x 1-bit pixels per byte. (Spectrum, CPC mode 2, etc.)\n"
+		"    ST0        Atari ST mode 0 (Low)\n"
+		"    ST1        Atari ST mode 1 (Medium)\n"
+		"    ST2        Atari ST mode 2 (High)\n"
 	},
 };
 

@@ -32,18 +32,13 @@ SOFTWARE.
 
 //==============================================================================
 
-enum class DataOutFormat
-{
-	PACKED_1BPP
-};
-
 struct Options
 {
 	int iMaskIndex = 0;
 	int iShift = 0;
 	const char* pInputName = nullptr;
 	const char* pOutputName = nullptr;
-	DataOutFormat dataOutFormat = DataOutFormat::PACKED_1BPP;
+	PixelFormat dataOutFormat = PixelFormat::PACKED_1;
 	bool bAppend = false;
 	bool bInvert = false;
 	std::string header;
@@ -56,6 +51,7 @@ static int ParseArgs( int argc, char** argv, Options& opt )
 		NONE,
 		OPT_INDEX,
 		OPT_SHIFT,
+		OPT_PIXEL_FORMAT,
 	};
 
 	eOption specialNextArg = NONE;
@@ -71,6 +67,33 @@ static int ParseArgs( int argc, char** argv, Options& opt )
 		{
 			switch ( specialNextArg )
 			{
+
+			case OPT_PIXEL_FORMAT:
+
+				if ( _stricmp( pArg, "1bpp" ) == 0 )
+				{
+					opt.dataOutFormat = PixelFormat::PACKED_1;
+				}
+				else if ( _stricmp( pArg, "st0" ) == 0 )
+				{
+					opt.dataOutFormat = PixelFormat::ATART_ST_M0;
+				}
+				else if ( _stricmp( pArg, "st1" ) == 0 )
+				{
+					opt.dataOutFormat = PixelFormat::ATART_ST_M1;
+				}
+				else if ( _stricmp( pArg, "st2" ) == 0 )
+				{
+					opt.dataOutFormat = PixelFormat::ATART_ST_M2;
+				}
+				else
+				{
+					// error.
+					PrintError( "Invalid -pf parameter \"%s\".", pArg );
+					return 1;
+				}
+
+				break;
 
 			case OPT_SHIFT:
 
@@ -140,6 +163,10 @@ static int ParseArgs( int argc, char** argv, Options& opt )
 			{
 				specialNextArg = OPT_SHIFT;
 			}
+			else if ( _stricmp( pArg, "-pf" ) == 0 )
+			{
+				specialNextArg = OPT_PIXEL_FORMAT;
+			}
 			else if ( _stricmp( pArg, "-append" ) == 0 )
 			{
 				opt.bAppend = true;
@@ -186,13 +213,13 @@ static int ParseArgs( int argc, char** argv, Options& opt )
 
 //==============================================================================
 
-static void BuildMask1BPP( const Image& image, ImageInfo& imageInfo, const Options& opt, Image& mask )
+static void BuildMask( const Image& image, ImageInfo& imageInfo, const Options& opt, Image& mask )
 {
-	mask.Create( PixelFormat::PACKED_1, imageInfo.width + opt.iShift, imageInfo.height );
+	mask.Create( opt.dataOutFormat, imageInfo.width + opt.iShift, imageInfo.height );
 
 	// Border pixels are implicitly index zero. TODO: Customise option?
 	uint32_t borderData;
-	borderData = ( 0 == opt.iMaskIndex ) ? 1 : 0;
+	borderData = ( 0 == opt.iMaskIndex ) ? UINT32_MAX : 0;
 
 	for ( uint32_t y = 0; y < imageInfo.height; ++y )
 	{
@@ -208,17 +235,17 @@ static void BuildMask1BPP( const Image& image, ImageInfo& imageInfo, const Optio
 			uint32_t data = image.Peek( x, y );
 
 			// Is this the matching index? If so, output a 1, otherwise 0.
-			data = ( data == opt.iMaskIndex ) ? 1 : 0;
+			data = ( data == opt.iMaskIndex ) ? UINT32_MAX : 0;
 
-			// Output to mask. Apply shift.
+			// Output to mask. Apply shift. Excess bits are ignored.
 			mask.Plot( x + opt.iShift, y, data );
 		}
 
-		// right-hand border, clear padding to 8 pixel wide boundary.
-		for ( int x = imageInfo.width + opt.iShift; x < mask.GetPitch() * 8; ++x )
-		{
-			mask.Plot( x, y, borderData );
-		}
+		// right-hand border, clear padding to end of allocated row
+ 		for ( int x = imageInfo.width + opt.iShift; x < mask.GetStride(); ++x )
+ 		{
+ 			mask.Plot( x, y, borderData );
+ 		}
 
 		// Invert?
 		if ( opt.bInvert )
@@ -262,27 +289,32 @@ int Mask( int argc, char** argv )
 	switch ( opt.dataOutFormat )
 	{
 
-	case DataOutFormat::PACKED_1BPP:
+	case PixelFormat::PACKED_1:
 		printf( "packed 1-BPP" );
+		break;
+
+	case PixelFormat::ATART_ST_M0:
+		printf( "Atari ST mode 0" );
+		break;
+
+	case PixelFormat::ATART_ST_M1:
+		printf( "Atari ST mode 1" );
+		break;
+
+	case PixelFormat::ATART_ST_M2:
+		printf( "Atari ST mode 2" );
 		break;
 
 	}
 
-	printf( "' mask from palette index %d.\n", opt.iMaskIndex );
+	printf( "' format mask from palette index %d.\n", opt.iMaskIndex );
 	
 	if ( opt.iShift )
 	{
 		Info( "Output is shifted right by %d pixels.\n", opt.iShift );
 	}
 
-	switch ( opt.dataOutFormat )
-	{
-
-	case DataOutFormat::PACKED_1BPP:
-		BuildMask1BPP( image, imageInfo, opt, mask );
-		break;
-	
-	}
+	BuildMask( image, imageInfo, opt, mask );
 
 	// Write output
 	if ( WriteImage_Fbin( mask, opt.pOutputName, opt.header, opt.bAppend ) )

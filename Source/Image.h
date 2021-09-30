@@ -77,6 +77,11 @@ public:
 		return _pitch;
 	}
 
+	uint16_t GetStride() const
+	{
+		return _stride;
+	}
+
 	uint16_t GetHeight() const
 	{
 		return _height;
@@ -87,6 +92,7 @@ private:
 
 	uint16_t _width; // pixels per row
 	uint16_t _pitch; // bytes per row
+	uint16_t _stride; // pixels per pitch
 	uint16_t _height;
 
 	PixelFormat _pixelFmt;

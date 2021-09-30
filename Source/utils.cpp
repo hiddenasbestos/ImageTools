@@ -374,13 +374,39 @@ void PrintImage( Image& image )
 	}
 }
 
+
+static void write_value_helper( FILE* fp_out, int iSize, bool bLittleEnd, uint32_t data )
+{
+	switch ( iSize )
+	{
+
+	case 1:
+		fputc( static_cast<uint8_t>( data ), fp_out );
+		break;
+
+	case 2:
+		if ( bLittleEnd )
+		{
+			fwrite( &data, 2, 1, fp_out );
+		}
+		else
+		{
+			fputc( static_cast<uint8_t>( data >> 8 ), fp_out );
+			fputc( static_cast<uint8_t>( data ), fp_out );
+		}
+		break;
+
+	}
+}
+
 //------------------------------------------------------------------------------
 // WriteOutHeader
 //------------------------------------------------------------------------------
 void WriteOutHeader( Image& image, std::string& header, FILE* fp_out )
 {
 	// State
-	int iSize = 1; // todo - support other sizes.
+	int iSize = 1;
+	bool bLittleEnd = false; // Default: Big endian
 
 	for ( size_t i = 0; i < header.length(); ++i )
 	{
@@ -393,16 +419,32 @@ void WriteOutHeader( Image& image, std::string& header, FILE* fp_out )
 			iSize = 1;
 			break;
 
-		case 'c':
-			fputc( static_cast<uint8_t>( image.GetPitch() ), fp_out );
+		case '2':
+			iSize = 2;
+			break;
+
+		case 'L':
+			bLittleEnd = true;
+			break;
+
+		case 'B':
+			bLittleEnd = false; // Big endian
+			break;
+
+		case 'z':
+			write_value_helper( fp_out, iSize, bLittleEnd, 0 );
+			break;
+
+		case 'p':
+			write_value_helper( fp_out, iSize, bLittleEnd, image.GetPitch() / iSize );
 			break;
 
 		case 'w':
-			fputc( static_cast<uint8_t>( image.GetWidth() ), fp_out );
+			write_value_helper( fp_out, iSize, bLittleEnd, image.GetWidth() );
 			break;
 
 		case 'h':
-			fputc( static_cast<uint8_t>( image.GetHeight() ), fp_out );
+			write_value_helper( fp_out, iSize, bLittleEnd, image.GetHeight() );
 			break;
 
 		}; // switch ( ch )
