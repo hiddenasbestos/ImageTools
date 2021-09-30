@@ -47,6 +47,8 @@ Extract a bit mask from an image.
   The following pixel formats are supported:
 
     1BPP       8 x 1-bit pixels per byte. (Spectrum, CPC mode 2, etc.)
+    CPC0       Amstrad CPC mode 0 (160x200,16)
+    CPC1       Amstrad CPC mode 1 (320x200,4)
     ST0        Atari ST mode 0 (Low)
     ST1        Atari ST mode 1 (Medium)
     ST2        Atari ST mode 2 (High)

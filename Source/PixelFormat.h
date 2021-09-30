@@ -52,4 +52,10 @@ enum class PixelFormat
 	// Atari ST mode 2 (high resolution). 16-bit planar (16 pixels x 1 planes), big-endian
 	ATART_ST_M2,
 
+	// Amstrad CPC mode 0. 2 pixels in 8 bits, eccentric ordering.
+	AMSTRAD_CPC_M0,
+
+	// Amstrad CPC mode 1. 4 pixels in 8 bits, planar
+	AMSTRAD_CPC_M1,
+
 };

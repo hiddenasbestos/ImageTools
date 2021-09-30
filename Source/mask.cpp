@@ -86,6 +86,14 @@ static int ParseArgs( int argc, char** argv, Options& opt )
 				{
 					opt.dataOutFormat = PixelFormat::ATART_ST_M2;
 				}
+				else if ( _stricmp( pArg, "cpc0" ) == 0 )
+				{
+					opt.dataOutFormat = PixelFormat::AMSTRAD_CPC_M0;
+				}
+				else if ( _stricmp( pArg, "cpc1" ) == 0 )
+				{
+					opt.dataOutFormat = PixelFormat::AMSTRAD_CPC_M1;
+				}
 				else
 				{
 					// error.
@@ -303,6 +311,14 @@ int Mask( int argc, char** argv )
 
 	case PixelFormat::ATART_ST_M2:
 		printf( "Atari ST mode 2" );
+		break;
+
+	case PixelFormat::AMSTRAD_CPC_M0:
+		printf( "Amstrad CPC mode 0" );
+		break;
+
+	case PixelFormat::AMSTRAD_CPC_M1:
+		printf( "Amstrad CPC mode 1" );
 		break;
 
 	}

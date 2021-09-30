@@ -74,6 +74,8 @@ static Tool gTools[] =
 		"  -pf FMT      Select the pixel format for the output. Default is \"1BPP\"\n\n"
 		"  The following pixel formats are supported:\n\n"
 		"    1BPP       8 x 1-bit pixels per byte. (Spectrum, CPC mode 2, etc.)\n"
+		"    CPC0       Amstrad CPC mode 0 (160x200,16)\n"
+		"    CPC1       Amstrad CPC mode 1 (320x200,4)\n"
 		"    ST0        Atari ST mode 0 (Low)\n"
 		"    ST1        Atari ST mode 1 (Medium)\n"
 		"    ST2        Atari ST mode 2 (High)\n"

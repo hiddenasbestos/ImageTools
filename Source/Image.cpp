@@ -158,6 +158,59 @@ void Image::Plot( int x, int y, uint32_t data )
 		}
 		break;
 
+	case PixelFormat::AMSTRAD_CPC_M0:
+		{
+			uint16_t block = ( x >> 1 );
+			offset = block + ( y * _pitch );
+			uint8_t* p = &( _pData[ offset ] );
+			uint8_t mask;
+
+			if ( x & 1 )
+			{
+				mask = 1 << 6; // pixel 1, bit 0
+				if ( data & 1 ) { *p |= mask; } else { *p &= ~mask; }
+
+				mask = 1 << 2; // pixel 1, bit 1
+				if ( data & 2 ) { *p |= mask; } else { *p &= ~mask; }
+
+				mask = 1 << 4; // pixel 1, bit 2
+				if ( data & 4 ) { *p |= mask; } else { *p &= ~mask; }
+
+				mask = 1 << 0; // pixel 1, bit 3
+				if ( data & 8 ) { *p |= mask; } else { *p &= ~mask; }
+			}
+			else
+			{
+				mask = 1 << 7; // pixel 0, bit 0
+				if ( data & 1 ) { *p |= mask; } else { *p &= ~mask; }
+
+				mask = 1 << 3; // pixel 0, bit 1
+				if ( data & 2 ) { *p |= mask; } else { *p &= ~mask; }
+
+				mask = 1 << 5; // pixel 0, bit 2
+				if ( data & 4 ) { *p |= mask; } else { *p &= ~mask; }
+
+				mask = 1 << 1; // pixel 0, bit 3
+				if ( data & 8 ) { *p |= mask; } else { *p &= ~mask; }
+			}
+		}
+		break;
+
+	case PixelFormat::AMSTRAD_CPC_M1:
+		{
+			uint16_t block = ( x >> 2 );
+			offset = block + ( y * _pitch );
+			uint8_t* p = &( _pData[ offset ] );
+			
+			uint8_t mask0, mask1;
+			mask0 = 0x08 >> ( x & 3 );
+			mask1 = 0x80 >> ( x & 3 );
+
+			if ( data & 1 ) { *p |= mask0; } else { *p &= ~mask0; }
+			if ( data & 2 ) { *p |= mask1; } else { *p &= ~mask1; }
+		}
+		break;
+
 	}
 }
 
@@ -226,6 +279,8 @@ uint32_t Image::Peek( int x, int y ) const
 	case PixelFormat::ATART_ST_M0:
 	case PixelFormat::ATART_ST_M1:
 	case PixelFormat::ATART_ST_M2:
+	case PixelFormat::AMSTRAD_CPC_M0:
+	case PixelFormat::AMSTRAD_CPC_M1:
 		// todo
 		break;
 
@@ -277,19 +332,29 @@ void Image::Create( PixelFormat fmt, uint16_t width, uint16_t height )
 		_stride = width;
 		break;
 
-	case  PixelFormat::ATART_ST_M0:
+	case PixelFormat::ATART_ST_M0:
 		_pitch = ( ( width + 15 ) / 16 ) * 8;
 		_stride = _pitch * 2;
 		break;
 
-	case  PixelFormat::ATART_ST_M1:
+	case PixelFormat::ATART_ST_M1:
 		_pitch = ( ( width + 15 ) / 16 ) * 4;
 		_stride = _pitch * 2;
 		break;
 
-	case  PixelFormat::ATART_ST_M2:
+	case PixelFormat::ATART_ST_M2:
 		_pitch = ( ( width + 15 ) / 16 ) * 2;
 		_stride = _pitch * 2;
+		break;
+
+	case PixelFormat::AMSTRAD_CPC_M0:
+		_pitch = ( width + 1 ) / 2;
+		_stride = _pitch * 2;
+		break;
+
+	case PixelFormat::AMSTRAD_CPC_M1:
+		_pitch = ( width + 3 ) / 4;
+		_stride = _pitch * 4;
 		break;
 
 	}
