@@ -467,6 +467,42 @@ void WriteImage( Image& image, FILE* fp_out )
 }
 
 //------------------------------------------------------------------------------
+// PrintPixelFormat
+//------------------------------------------------------------------------------
+void PrintPixelFormat( PixelFormat pf )
+{
+	switch ( pf )
+	{
+
+	case PixelFormat::PACKED_1:
+		printf( "packed 1-BPP" );
+		break;
+
+	case PixelFormat::ATART_ST_M0:
+		printf( "Atari ST mode 0" );
+		break;
+
+	case PixelFormat::ATART_ST_M1:
+		printf( "Atari ST mode 1" );
+		break;
+
+	case PixelFormat::ATART_ST_M2:
+		printf( "Atari ST mode 2" );
+		break;
+
+	case PixelFormat::AMSTRAD_CPC_M0:
+		printf( "Amstrad CPC mode 0" );
+		break;
+
+	case PixelFormat::AMSTRAD_CPC_M1:
+		printf( "Amstrad CPC mode 1" );
+		break;
+
+	}
+
+}
+
+//------------------------------------------------------------------------------
 // WriteImage_Fbin
 //------------------------------------------------------------------------------
 int WriteImage_Fbin( Image& image, const char* pOutputName, std::string& header, bool bAppend )

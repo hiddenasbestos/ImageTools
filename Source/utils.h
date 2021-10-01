@@ -29,6 +29,7 @@ SOFTWARE.
 
 class Image;
 struct ImageInfo;
+enum class PixelFormat;
 
 
 //------------------------------------------------------------------------------
@@ -86,5 +87,8 @@ void WriteOutHeader( Image& image, std::string& header, FILE* fp_out );
 
 // Write an image to a standard stream
 void WriteImage( Image& image, FILE* fp_out );
+
+// Print a pixel format as text
+void PrintPixelFormat( PixelFormat pf );
 
 //==============================================================================

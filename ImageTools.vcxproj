@@ -32,6 +32,7 @@
     <ClCompile Include="Source\ImageTools.cpp" />
     <ClCompile Include="Source\FileReader.cpp" />
     <ClCompile Include="Source\mask.cpp" />
+    <ClCompile Include="Source\PixelFormat.cpp" />
     <ClCompile Include="Source\utils.cpp" />
     <ClCompile Include="3rdParty\zlib-1.2.11\adler32.c" />
     <ClCompile Include="3rdParty\zlib-1.2.11\compress.c" />

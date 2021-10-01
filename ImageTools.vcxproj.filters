@@ -114,6 +114,9 @@
     <ClCompile Include="Source\Loader.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PixelFormat.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\utils.h">

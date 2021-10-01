@@ -70,31 +70,9 @@ static int ParseArgs( int argc, char** argv, Options& opt )
 
 			case OPT_PIXEL_FORMAT:
 
-				if ( _stricmp( pArg, "1bpp" ) == 0 )
-				{
-					opt.dataOutFormat = PixelFormat::PACKED_1;
-				}
-				else if ( _stricmp( pArg, "st0" ) == 0 )
-				{
-					opt.dataOutFormat = PixelFormat::ATART_ST_M0;
-				}
-				else if ( _stricmp( pArg, "st1" ) == 0 )
-				{
-					opt.dataOutFormat = PixelFormat::ATART_ST_M1;
-				}
-				else if ( _stricmp( pArg, "st2" ) == 0 )
-				{
-					opt.dataOutFormat = PixelFormat::ATART_ST_M2;
-				}
-				else if ( _stricmp( pArg, "cpc0" ) == 0 )
-				{
-					opt.dataOutFormat = PixelFormat::AMSTRAD_CPC_M0;
-				}
-				else if ( _stricmp( pArg, "cpc1" ) == 0 )
-				{
-					opt.dataOutFormat = PixelFormat::AMSTRAD_CPC_M1;
-				}
-				else
+				opt.dataOutFormat = DecodePixelFormat( pArg );
+
+				if ( opt.dataOutFormat == PixelFormat::UNKNOWN )
 				{
 					// error.
 					PrintError( "Invalid -pf parameter \"%s\".", pArg );
@@ -294,34 +272,7 @@ int Mask( int argc, char** argv )
 	Image mask;
 	Info( "Generating '" );
 
-	switch ( opt.dataOutFormat )
-	{
-
-	case PixelFormat::PACKED_1:
-		printf( "packed 1-BPP" );
-		break;
-
-	case PixelFormat::ATART_ST_M0:
-		printf( "Atari ST mode 0" );
-		break;
-
-	case PixelFormat::ATART_ST_M1:
-		printf( "Atari ST mode 1" );
-		break;
-
-	case PixelFormat::ATART_ST_M2:
-		printf( "Atari ST mode 2" );
-		break;
-
-	case PixelFormat::AMSTRAD_CPC_M0:
-		printf( "Amstrad CPC mode 0" );
-		break;
-
-	case PixelFormat::AMSTRAD_CPC_M1:
-		printf( "Amstrad CPC mode 1" );
-		break;
-
-	}
+	PrintPixelFormat( opt.dataOutFormat );
 
 	printf( "' format mask from palette index %d.\n", opt.iMaskIndex );
 	

@@ -46,6 +46,9 @@ void Image::Plot( int x, int y, uint32_t data )
 
 	switch ( _pixelFmt )
 	{
+
+	case PixelFormat::UNKNOWN:
+		break;
 	
 	case PixelFormat::PACKED_1:
 		{
@@ -222,6 +225,9 @@ uint32_t Image::Peek( int x, int y ) const
 	switch ( _pixelFmt )
 	{
 
+	case PixelFormat::UNKNOWN:
+		break;
+
 	case PixelFormat::PACKED_1:
 		{
 			offset = ( x >> 3 ) + y * _pitch;
@@ -300,9 +306,20 @@ void Image::Clear( uint8_t value )
 
 void Image::Create( PixelFormat fmt, uint16_t width, uint16_t height )
 {
+	free( _pData ); // clear any leaks.
+	_pData = nullptr;
+
+	_pixelFmt = fmt;
+
+	if ( fmt == PixelFormat::UNKNOWN )
+	{
+		_width = 0;
+		_height = 0;
+		return;
+	}
+
 	_width = width;
 	_height = height;
-	_pixelFmt = fmt;
 
 	switch ( fmt )
 	{
@@ -361,8 +378,6 @@ void Image::Create( PixelFormat fmt, uint16_t width, uint16_t height )
 
 	uint32_t uByteCount;
 	uByteCount = _pitch * height;
-
-	free( _pData ); // clear any leaks.
 
 	_pData = reinterpret_cast< uint8_t* >( calloc( height, _pitch ) );
 }
