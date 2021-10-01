@@ -206,8 +206,8 @@ void Image::Plot( int x, int y, uint32_t data )
 			uint8_t* p = &( _pData[ offset ] );
 			
 			uint8_t mask0, mask1;
-			mask0 = 0x08 >> ( x & 3 );
-			mask1 = 0x80 >> ( x & 3 );
+			mask0 = 0x80 >> ( x & 3 );
+			mask1 = 0x08 >> ( x & 3 );
 
 			if ( data & 1 ) { *p |= mask0; } else { *p &= ~mask0; }
 			if ( data & 2 ) { *p |= mask1; } else { *p &= ~mask1; }
