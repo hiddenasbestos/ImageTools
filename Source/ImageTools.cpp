@@ -48,6 +48,28 @@ extern int Help( int argc, char** argv );
 extern int Export( int argc, char** argv );
 extern int Mask( int argc, char** argv );
 
+#define HELP_BLOCK_HEADER																	\
+		"  -H###        Add a header. ### is a string of codes as follows:\n\n"				\
+		"    1          Byte mode (default).\n"												\
+		"    2          Word mode - 2 bytes per entity.\n"									\
+		"    L          Use little endian byte order.\n"									\
+		"    B          Use big endian byte order (default).\n"								\
+		"    w          Width of the output in pixels.\n"									\
+		"    p          Pitch of the output in bytes(1) or words(2)\n"						\
+		"    h          Height of the output in pixels.\n"									\
+		"    z          Write zero byte(1) or word(2).\n"
+
+#define HELP_BLOCK_PIXEL_FORMAT																\
+		"  -pf FMT      Select the pixel format for the output. Default is \"1BPP\"\n\n"	\
+		"  The following pixel formats are supported:\n\n"									\
+		"    1BPP       8 x 1-bit pixels per byte. (Spectrum, CPC mode 2, etc.)\n"			\
+		"    CPC0       Amstrad CPC mode 0 (160x200,16)\n"									\
+		"    CPC1       Amstrad CPC mode 1 (320x200,4)\n"									\
+		"    ST0        Atari ST mode 0 (Low)\n"											\
+		"    ST1        Atari ST mode 1 (Medium)\n"											\
+		"    ST2        Atari ST mode 2 (High)\n"
+
+
 // ... register the tools
 static Tool gTools[] =
 {
@@ -61,23 +83,12 @@ static Tool gTools[] =
 		"  <output>     The output file.\n\n"
 		"  -shift R     Shift output to the right by R pixels.\n"
 		"  -append      Append to the output file, rather than overwriting it.\n\n"
-		"  -H###        Add a header. ### is a string of codes as follows:\n\n"
-		"    1          Byte mode (default).\n"
-		"    2          Word mode - 2 bytes per entity.\n"
-		"    L          Use little endian byte order.\n"
-		"    B          Use big endian byte order (default).\n"
-		"    w          Width of the output in pixels.\n"
-		"    p          Pitch of the output in bytes(1) or words(2)\n"
-		"    h          Height of the output in pixels.\n"
-		"    z          Write zero byte(1) or word(2).\n\n"
-		"  -pf FMT      Select the pixel format for the output. Default is \"1BPP\"\n\n"
-		"  The following pixel formats are supported:\n\n"
-		"    1BPP       8 x 1-bit pixels per byte. (Spectrum, CPC mode 2, etc.)\n"
-		"    CPC0       Amstrad CPC mode 0 (160x200,16)\n"
-		"    CPC1       Amstrad CPC mode 1 (320x200,4)\n"
-		"    ST0        Atari ST mode 0 (Low)\n"
-		"    ST1        Atari ST mode 1 (Medium)\n"
-		"    ST2        Atari ST mode 2 (High)\n"
+
+		HELP_BLOCK_HEADER
+
+		"\n"
+
+		HELP_BLOCK_PIXEL_FORMAT
 	},
 
 	{
@@ -88,23 +99,12 @@ static Tool gTools[] =
 		"  -not         Invert the output. Including border/shifted area.\n"
 		"  -shift R     Shift output to the right by R pixels.\n"
 		"  -append      Append to the output file, rather than overwriting it.\n\n"
-		"  -H###        Add a header. ### is a string of codes as follows:\n\n"
-		"    1          Byte mode (default).\n"
-		"    2          Word mode - 2 bytes per entity.\n"
-		"    L          Use little endian byte order.\n"
-		"    B          Use big endian byte order (default).\n"
-		"    w          Width of the output in pixels.\n"
-		"    p          Pitch of the output in bytes(1) or words(2)\n"
-		"    h          Height of the output in pixels.\n"
-		"    z          Write zero byte(1) or word(2).\n\n"
-		"  -pf FMT      Select the pixel format for the output. Default is \"1BPP\"\n\n"
-		"  The following pixel formats are supported:\n\n"
-		"    1BPP       8 x 1-bit pixels per byte. (Spectrum, CPC mode 2, etc.)\n"
-		"    CPC0       Amstrad CPC mode 0 (160x200,16)\n"
-		"    CPC1       Amstrad CPC mode 1 (320x200,4)\n"
-		"    ST0        Atari ST mode 0 (Low)\n"
-		"    ST1        Atari ST mode 1 (Medium)\n"
-		"    ST2        Atari ST mode 2 (High)\n"
+
+		HELP_BLOCK_HEADER
+
+		"\n"
+
+		HELP_BLOCK_PIXEL_FORMAT
 	},
 };
 
