@@ -27,6 +27,7 @@
     <ClCompile Include="3rdParty\lpng1637\pngwtran.c" />
     <ClCompile Include="3rdParty\lpng1637\pngwutil.c" />
     <ClCompile Include="Source\cPNG.cpp" />
+    <ClCompile Include="Source\export.cpp" />
     <ClCompile Include="Source\Image.cpp" />
     <ClCompile Include="Source\Loader.cpp" />
     <ClCompile Include="Source\ImageTools.cpp" />
