@@ -21,7 +21,7 @@ Export a raw image in a new pixel format.
 
 **Usage**
 ```
- ImageTools mask <input> <output> [-shift R] [-append] [-H###] [-pf format]
+ ImageTools export <input> <output> [-shift R] [-append] [-H###] [-pf format]
 
   <input>      An image file to read. (Indexed .PNG only)
 
@@ -63,7 +63,7 @@ Export an image for use with Amstrad CPC mode 1.
 
 **Notes**
 
-* The border on the left (when shifting) and right (when the source width is not an exact multiple of 8) is assumed to contain pixels of index 0.
+* The border on the left (when shifting) and right (when the source width is not an exact multiple of bytes/words) is set to index 0.
 
 
 ---
@@ -121,6 +121,6 @@ Converts an image file into a background erasing mask followed by a pixel image 
 
 * In 1BPP pixel format, each byte of output data corresponds to 8 pixels with the most significant bit representing the left-side of the image.
 
-* The border on the left (when shifting) and right (when the source width is not an exact multiple of 8) is assumed to contain pixels of index 0.
+* The border on the left (when shifting) and right (when the source width is not an exact multiple of bytes/words) is assumed to contain pixels of index 0.
 
 
