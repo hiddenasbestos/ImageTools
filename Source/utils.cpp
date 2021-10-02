@@ -402,7 +402,7 @@ static void write_value_helper( FILE* fp_out, int iSize, bool bLittleEnd, uint32
 //------------------------------------------------------------------------------
 // WriteOutHeader
 //------------------------------------------------------------------------------
-void WriteOutHeader( Image& image, std::string& header, FILE* fp_out )
+void WriteOutHeader( Image& image, std::string& header, FILE* fp_out, int iTileCount, int iTileHeight )
 {
 	// State
 	int iSize = 1;
@@ -444,7 +444,11 @@ void WriteOutHeader( Image& image, std::string& header, FILE* fp_out )
 			break;
 
 		case 'h':
-			write_value_helper( fp_out, iSize, bLittleEnd, image.GetHeight() );
+			write_value_helper( fp_out, iSize, bLittleEnd, iTileHeight );
+			break;
+
+		case 'n':
+			write_value_helper( fp_out, iSize, bLittleEnd, iTileCount );
 			break;
 
 		}; // switch ( ch )
@@ -469,7 +473,7 @@ void WriteImage( Image& image, FILE* fp_out )
 //------------------------------------------------------------------------------
 // WriteImage_Fbin
 //------------------------------------------------------------------------------
-int WriteImage_Fbin( Image& image, const char* pOutputName, std::string& header, bool bAppend )
+int WriteImage_Fbin( Image& image, const char* pOutputName, std::string& header, bool bAppend, int iTileCount, int iTileHeight )
 {
 	int err;
 	FILE* fp_out;
@@ -495,7 +499,7 @@ int WriteImage_Fbin( Image& image, const char* pOutputName, std::string& header,
 	printf( " \"%s\" ... ", pOutputName );
 
 	// Header
-	WriteOutHeader( image, header, fp_out );
+	WriteOutHeader( image, header, fp_out, iTileCount, iTileHeight );
 	
 	// Image
 	WriteImage( image, fp_out );

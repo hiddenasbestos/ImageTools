@@ -80,10 +80,10 @@ int LoadImage( const char* pInputName, Image& image, ImageInfo& imageInfo );
 void PrintImage( Image& image );
 
 // Write an image to a file, Return 0 on success, 1 on error. 
-int WriteImage_Fbin( Image& image, const char* pOutputName, std::string& header, bool bAppend );
+int WriteImage_Fbin( Image& image, const char* pOutputName, std::string& header, bool bAppend, int iTileCount, int iTileHeight );
 
 // Write a flexible header
-void WriteOutHeader( Image& image, std::string& header, FILE* fp_out );
+void WriteOutHeader( Image& image, std::string& header, FILE* fp_out, int iTileCount, int iTileHeight );
 
 // Write an image to a standard stream
 void WriteImage( Image& image, FILE* fp_out );

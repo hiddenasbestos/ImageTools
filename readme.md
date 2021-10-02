@@ -21,11 +21,14 @@ Export a raw image in a new pixel format.
 
 **Usage**
 ```
- ImageTools export <input> <output> [-shift R] [-append] [-H###] [-pf format]
+ ImageTools export <input> <output> [-tile WxH] [-shift R] [-append] [-H###] [-pf format]
 
   <input>      An image file to read. (Indexed .PNG only)
 
   <output>     The output file.
+
+  -tile WxH    Split the input image into tiles of WxH pixels and output as
+               concatenated chunks. Tiles are split in row-major order.
 
   -shift R     Shift output to the right by R pixels.
   -append      Append to the output file, rather than overwriting it.
@@ -36,6 +39,7 @@ Export a raw image in a new pixel format.
     2          Word mode - 2 bytes per entity.
     L          Use little endian byte order.
     B          Use big endian byte order (default).
+    n          Number of tiles.
     w          Width of the output in pixels.
     p          Pitch of the output in bytes(1) or words(2)
     h          Height of the output in pixels.
@@ -77,11 +81,14 @@ Extract a bit mask from an image.
 
 **Usage**
 ```
- ImageTools mask <input> <output> [-index I] [-not] [-shift R] [-append] [-H###] [-pf format]
+ ImageTools mask <input> <output> [-tile WxH] [-index I] [-not] [-shift R] [-append] [-H###] [-pf format]
 
   <input>      An image file to read. (Indexed .PNG only)
 
   <output>     The output file.
+
+  -tile WxH    Split the input image into tiles of WxH pixels and output as
+               concatenated chunks. Tiles are split in row-major order.
 
   -index I     Specify the index of pixels to extract. Default 0.
   -not         Invert the output. Including border/shifted area.
@@ -94,6 +101,7 @@ Extract a bit mask from an image.
     2          Word mode - 2 bytes per entity.
     L          Use little endian byte order.
     B          Use big endian byte order (default).
+    n          Number of tiles.
     w          Width of the output in pixels.
     p          Pitch of the output in bytes(1) or words(2)
     h          Height of the output in pixels.

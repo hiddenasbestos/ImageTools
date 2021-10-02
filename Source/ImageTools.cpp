@@ -54,9 +54,10 @@ extern int Mask( int argc, char** argv );
 		"    2          Word mode - 2 bytes per entity.\n"									\
 		"    L          Use little endian byte order.\n"									\
 		"    B          Use big endian byte order (default).\n"								\
+		"    n          Number of tiles.\n"													\
 		"    w          Width of the output in pixels.\n"									\
 		"    p          Pitch of the output in bytes(1) or words(2)\n"						\
-		"    h          Height of the output in pixels.\n"									\
+		"    h          Height of the output or rows per tile, in pixels.\n"				\
 		"    z          Write zero byte(1) or word(2).\n"
 
 #define HELP_BLOCK_PIXEL_FORMAT																\
@@ -81,9 +82,11 @@ static Tool gTools[] =
 	//-----------------
 
 	{
-		"export", Export, "Export a raw image in a new pixel format.", "<input> <output> [-shift R] [-append]\n\t[-H###] [-pf format]",
+		"export", Export, "Export a raw image in a new pixel format.", "<input> <output> [-tile WxH] [-shift R] [-append]\n\t[-H###] [-pf format]",
 		"  <input>      An image file to read. (Indexed .PNG only)\n\n"
 		"  <output>     The output file.\n\n"
+		"  -tile WxH    Split the input image into tiles of WxH pixels and output as\n"
+		"               concatenated chunks. Tiles are split in row-major order.\n\n"
 		"  -shift R     Shift output to the right by R pixels.\n"
 		"  -append      Append to the output file, rather than overwriting it.\n\n"
 
@@ -95,9 +98,11 @@ static Tool gTools[] =
 	},
 
 	{
-		"mask", Mask, "Extract a bit mask from an image.", "<input> <output> [-index I] [-not] [-shift R] [-append]\n\t[-H###] [-pf format]",
+		"mask", Mask, "Extract a bit mask from an image.", "<input> <output> [-tile WxH] [-index I] [-not]\n\t[-shift R] [-append] [-H###] [-pf format]",
 		"  <input>      An image file to read. (Indexed .PNG only)\n\n"
 		"  <output>     The output file.\n\n"
+		"  -tile WxH    Split the input image into tiles of WxH pixels and output as\n"
+		"               concatenated chunks. Tiles are split in row-major order.\n\n"
 		"  -index I     Specify the index of pixels to extract. Default 0.\n"
 		"  -not         Invert the output. Including border/shifted area.\n"
 		"  -shift R     Shift output to the right by R pixels.\n"

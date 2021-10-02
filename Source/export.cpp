@@ -32,23 +32,27 @@ SOFTWARE.
 
 //==============================================================================
 
-struct Options
+struct OptionsExport
 {
 	int iShift = 0;
 	const char* pInputName = nullptr;
 	const char* pOutputName = nullptr;
 	PixelFormat dataOutFormat = PixelFormat::PACKED_1;
 	bool bAppend = false;
+	int iTileW = 0;
+	int iTileH = 0;
+
 	std::string header;
 };
 
-static int ParseArgs( int argc, char** argv, Options& opt )
+static int ParseArgs( int argc, char** argv, OptionsExport& opt )
 {
 	enum eOption
 	{
 		NONE,
 		OPT_SHIFT,
 		OPT_PIXEL_FORMAT,
+		OPT_TILE,
 	};
 
 	eOption specialNextArg = NONE;
@@ -64,6 +68,36 @@ static int ParseArgs( int argc, char** argv, Options& opt )
 		{
 			switch ( specialNextArg )
 			{
+
+			case OPT_TILE:
+
+				{
+					int iValue;
+					char* pEnd = nullptr;
+					iValue = strtol( pArg, &pEnd, 10 );
+
+					if ( iValue > 0 )
+					{
+						opt.iTileW = iValue;
+
+						pEnd++;
+
+						iValue = strtol( pEnd, nullptr, 10 );
+						if ( iValue > 0 )
+						{
+							opt.iTileH = iValue;
+						}
+					}
+
+					if ( opt.iTileW == 0 || opt.iTileH == 0 )
+					{
+						// error.
+						PrintError( "Invalid -tile parameter \"%s\".", pArg );
+						return 1;
+					}
+				}
+
+				break;
 
 			case OPT_PIXEL_FORMAT:
 
@@ -119,6 +153,10 @@ static int ParseArgs( int argc, char** argv, Options& opt )
 			{
 				specialNextArg = OPT_PIXEL_FORMAT;
 			}
+			else if ( _stricmp( pArg, "-tile" ) == 0 )
+			{
+				specialNextArg = OPT_TILE;
+			}
 			else if ( _stricmp( pArg, "-append" ) == 0 )
 			{
 				opt.bAppend = true;
@@ -161,35 +199,96 @@ static int ParseArgs( int argc, char** argv, Options& opt )
 
 //==============================================================================
 
-static void BuildOutput( const Image& image, ImageInfo& imageInfo, const Options& opt, Image& output )
+static void BuildOutput( const Image& image, ImageInfo& imageInfo, const OptionsExport& opt, Image& output )
 {
-	output.Create( opt.dataOutFormat, imageInfo.width + opt.iShift, imageInfo.height );
-
 	// Border pixels are implicitly index zero. TODO: Customise option?
 	uint32_t borderValue = 0;
 
-	for ( uint32_t y = 0; y < imageInfo.height; ++y )
+	if ( opt.iTileW )
 	{
-		// clear space revealed by shifting
-		for ( int x = 0; x < opt.iShift; ++x )
+		//
+		// -- TILE MODE
+
+		int iTilesX = image.GetWidth() / opt.iTileW;
+		int iTilesY = image.GetHeight() / opt.iTileH;
+
+		output.Create( opt.dataOutFormat, opt.iTileW + opt.iShift, opt.iTileH * iTilesX * iTilesY );
+
+		// For each tile (row-major order)
+		for ( int ity = 0; ity < iTilesY; ++ity )
 		{
-			output.Plot( x, y, borderValue );
-		}
+			for ( int itx = 0; itx < iTilesX; ++itx )
+			{
+				// tile source position.
+				int index = itx + ity * iTilesX;
+				int src_x0 = itx * opt.iTileW;
+				int src_y0 = ity * opt.iTileH;
 
-		for ( uint32_t x = 0; x < imageInfo.width; ++x )
+				// output position
+				int dst_y0 = index * opt.iTileH;
+
+				// Copy tile
+				for ( int iy = 0; iy < opt.iTileH; ++iy )
+				{
+					const int y = dst_y0 + iy;
+
+					// clear space revealed by shifting
+					for ( int x = 0; x < opt.iShift; ++x )
+					{
+						output.Plot( x, y, borderValue );
+					}
+
+					// copy tile row
+					for ( int x = 0; x < opt.iTileW; ++x )
+					{
+						// Read the pixel at this position.
+						uint32_t data = image.Peek( src_x0 + x, src_y0 + iy );
+
+						// Output to export. Apply shift. Excess bits are ignored.
+						output.Plot( x + opt.iShift, y, data );
+					}
+
+					// right-hand border, clear padding to end of allocated row
+					for ( int x = imageInfo.width + opt.iShift; x < output.GetStride(); ++x )
+					{
+						output.Plot( x, y, borderValue );
+					}
+				}
+
+			}; // for each source column
+		
+		}; // for each source row
+	}
+	else
+	{
+		//
+		// -- WHOLE IMAGE
+
+		output.Create( opt.dataOutFormat, imageInfo.width + opt.iShift, imageInfo.height );
+
+		for ( uint32_t y = 0; y < imageInfo.height; ++y )
 		{
-			// Read the index at this position.
-			uint32_t data = image.Peek( x, y );
+			// clear space revealed by shifting
+			for ( int x = 0; x < opt.iShift; ++x )
+			{
+				output.Plot( x, y, borderValue );
+			}
 
-			// Output to export. Apply shift. Excess bits are ignored.
-			output.Plot( x + opt.iShift, y, data );
+			for ( uint32_t x = 0; x < imageInfo.width; ++x )
+			{
+				// Read the index at this position.
+				uint32_t data = image.Peek( x, y );
+
+				// Output to export. Apply shift. Excess bits are ignored.
+				output.Plot( x + opt.iShift, y, data );
+			}
+
+			// right-hand border, clear padding to end of allocated row
+			for ( int x = imageInfo.width + opt.iShift; x < output.GetStride(); ++x )
+			{
+				output.Plot( x, y, borderValue );
+			}
 		}
-
-		// right-hand border, clear padding to end of allocated row
- 		for ( int x = imageInfo.width + opt.iShift; x < output.GetStride(); ++x )
- 		{
-			output.Plot( x, y, borderValue );
- 		}
 	}
 }
 
@@ -200,7 +299,7 @@ static void BuildOutput( const Image& image, ImageInfo& imageInfo, const Options
 //------------------------------------------------------------------------------
 int Export( int argc, char** argv )
 {
-	Options opt;
+	OptionsExport opt;
 	Image image;
 	ImageInfo imageInfo;
 
@@ -217,7 +316,7 @@ int Export( int argc, char** argv )
 	}
 
 	// Build output
-	Image mask;
+	Image output;
 	Info( "Exporting '" );
 
 	PrintPixelFormat( opt.dataOutFormat );
@@ -229,10 +328,30 @@ int Export( int argc, char** argv )
 		Info( "Output is shifted right by %d pixels.\n", opt.iShift );
 	}
 
-	BuildOutput( image, imageInfo, opt, mask );
+	int tileCount;
+	if ( opt.iTileW )
+	{
+		tileCount = ( imageInfo.width / opt.iTileW ) * ( imageInfo.height / opt.iTileH );
+
+		if ( tileCount <= 0 )
+		{
+			PrintError( "Image is too small to create tiles." );
+			return 1; // ERROR
+		}
+
+		Info( "Splitting input into %d tiles of %dx%d pixels.\n", tileCount, opt.iTileW, opt.iTileH );
+	}
+	else
+	{
+		// patch data for header system.
+		tileCount = 1; // whole image is one "tile"
+		opt.iTileH = output.GetHeight();
+	}
+
+	BuildOutput( image, imageInfo, opt, output );
 
 	// Write output
-	if ( WriteImage_Fbin( mask, opt.pOutputName, opt.header, opt.bAppend ) )
+	if ( WriteImage_Fbin( output, opt.pOutputName, opt.header, opt.bAppend, tileCount, opt.iTileH ) )
 	{
 		return 1; // ERROR
 	}
