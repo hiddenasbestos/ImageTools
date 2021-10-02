@@ -33,6 +33,9 @@ enum class PixelFormat
 	// Packed 8 pixels to a byte. MSB = left side; LSB = right side
 	PACKED_1,
 
+	// Packed 4 pixels to a byte in adjacent bit pairs. MSB = pixel 0; LSB = pixel 3
+	PACKED_2,
+
 	// Packed 2 x 4 bit pixel values. Bits 7:4 = left side; Bits 3:0 = right side
 	PACKED_4,
 
@@ -60,6 +63,11 @@ enum class PixelFormat
 	// Amstrad CPC mode 1. 4 pixels in 8 bits, planar
 	AMSTRAD_CPC_M1,
 
+	// Amstrad CPC mode 2. 8 pixels in 8 bits
+	AMSTRAD_CPC_M2,
+
+	// IBM CGA. BIOS mode 4/5 (320x200x4) 4 pixels in 8 bits, chunky
+	IBM_CGA,
 };
 
 // Helper to decode a string into a pixel format (case insensitive)

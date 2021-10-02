@@ -69,7 +69,26 @@ void Image::Plot( int x, int y, uint32_t data )
 			}
 		}
 		break;
-	
+
+	case PixelFormat::PACKED_2:
+	case PixelFormat::IBM_CGA:
+		{
+			offset = ( x >> 2 ) + y * _pitch;
+			uint8_t* p = _pData + offset;
+
+			data &= 0x3; // extract 4 colour value
+
+			uint8_t shift;
+			shift = ( 3 - ( x & 3 ) ) << 1;
+
+			// ... mask
+			*p &= ~( 3 << shift );
+
+			// ... insert
+			*p |= ( data << shift );
+		}
+		break;
+
 	case PixelFormat::PACKED_4:
 		{
 			offset = ( x >> 1 ) + y * _pitch;
@@ -242,6 +261,19 @@ uint32_t Image::Peek( int x, int y ) const
 		}
 		break;
 
+	case PixelFormat::PACKED_2:
+	case PixelFormat::IBM_CGA:
+		{
+			offset = ( x >> 2 ) + y * _pitch;
+			uint8_t* p = _pData + offset;
+
+			uint8_t shift;
+			shift = ( 3 - ( x & 3 ) ) << 1;
+
+			data = ( *p >> shift ) & 3;
+		}
+		break;
+
 	case PixelFormat::PACKED_4:
 		{
 			offset = ( x >> 1 ) + y * _pitch;
@@ -373,6 +405,11 @@ void Image::Create( PixelFormat fmt, uint16_t width, uint16_t height )
 		break;
 
 	case PixelFormat::AMSTRAD_CPC_M1:
+		_pitch = ( width + 3 ) / 4;
+		_stride = _pitch * 4;
+		break;
+
+	case PixelFormat::IBM_CGA:
 		_pitch = ( width + 3 ) / 4;
 		_stride = _pitch * 4;
 		break;

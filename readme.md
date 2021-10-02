@@ -45,9 +45,12 @@ Export a raw image in a new pixel format.
 
   The following pixel formats are supported:
 
-    1BPP       8 x 1-bit pixels per byte. (Spectrum, CPC mode 2, etc.)
+    1BPP       8 x 1-bit pixels per byte. (ZX Spectrum, Hercules, etc.)
+    2BPP       4 x 2-bit pixels per byte.
+    CGA        IBM CGA mode 4/5 (320x200,4)
     CPC0       Amstrad CPC mode 0 (160x200,16)
     CPC1       Amstrad CPC mode 1 (320x200,4)
+    CPC2       Amstrad CPC mode 2 (640x200,2)
     ST0        Atari ST mode 0 (Low)
     ST1        Atari ST mode 1 (Medium)
     ST2        Atari ST mode 2 (High)
@@ -100,9 +103,12 @@ Extract a bit mask from an image.
 
   The following pixel formats are supported:
 
-    1BPP       8 x 1-bit pixels per byte. (Spectrum, CPC mode 2, etc.)
+    1BPP       8 x 1-bit pixels per byte. (ZX Spectrum, Hercules, etc.)
+    2BPP       4 x 2-bit pixels per byte.
+    CGA        IBM CGA mode 4/5 (320x200,4)
     CPC0       Amstrad CPC mode 0 (160x200,16)
     CPC1       Amstrad CPC mode 1 (320x200,4)
+    CPC2       Amstrad CPC mode 2 (640x200,2)
     ST0        Atari ST mode 0 (Low)
     ST1        Atari ST mode 1 (Medium)
     ST2        Atari ST mode 2 (High)

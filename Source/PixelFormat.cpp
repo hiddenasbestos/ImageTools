@@ -36,6 +36,14 @@ PixelFormat DecodePixelFormat( const char* pArg )
 	{
 		return PixelFormat::PACKED_1;
 	}
+	else if ( _stricmp( pArg, "2bpp" ) == 0 )
+	{
+		return PixelFormat::PACKED_2;
+	}
+	else if ( _stricmp( pArg, "cga" ) == 0 )
+	{
+		return PixelFormat::IBM_CGA;
+	}
 	else if ( _stricmp( pArg, "st0" ) == 0 )
 	{
 		return PixelFormat::ATART_ST_M0;
@@ -74,6 +82,14 @@ void PrintPixelFormat( PixelFormat pf )
 
 	case PixelFormat::PACKED_1:
 		printf( "packed 1-BPP" );
+		break;
+
+	case PixelFormat::PACKED_2:
+		printf( "packed 2-BPP" );
+		break;
+
+	case PixelFormat::IBM_CGA:
+		printf( "IBM CGA" );
 		break;
 
 	case PixelFormat::ATART_ST_M0:
