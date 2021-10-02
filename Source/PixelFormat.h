@@ -66,3 +66,6 @@ enum class PixelFormat
 // If it's not recognised, returns PixelFormat::UNKNOWN
 PixelFormat DecodePixelFormat( const char* pArg );
 
+// Print a pixel format as text
+void PrintPixelFormat( PixelFormat pf );
+

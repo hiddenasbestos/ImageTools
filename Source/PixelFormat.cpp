@@ -23,6 +23,7 @@ SOFTWARE.
 */
 
 #include <cstring>
+#include <cstdio>
 
 #include "PixelFormat.h"
 
@@ -57,4 +58,39 @@ PixelFormat DecodePixelFormat( const char* pArg )
 	}
 
 	return PixelFormat::UNKNOWN;
+}
+
+//------------------------------------------------------------------------------
+// PrintPixelFormat
+//------------------------------------------------------------------------------
+void PrintPixelFormat( PixelFormat pf )
+{
+	switch ( pf )
+	{
+
+	case PixelFormat::PACKED_1:
+		printf( "packed 1-BPP" );
+		break;
+
+	case PixelFormat::ATART_ST_M0:
+		printf( "Atari ST mode 0" );
+		break;
+
+	case PixelFormat::ATART_ST_M1:
+		printf( "Atari ST mode 1" );
+		break;
+
+	case PixelFormat::ATART_ST_M2:
+		printf( "Atari ST mode 2" );
+		break;
+
+	case PixelFormat::AMSTRAD_CPC_M0:
+		printf( "Amstrad CPC mode 0" );
+		break;
+
+	case PixelFormat::AMSTRAD_CPC_M1:
+		printf( "Amstrad CPC mode 1" );
+		break;
+
+	}
 }
