@@ -32,7 +32,7 @@ SOFTWARE.
 //------------------------------------------------------------------------------
 PixelFormat DecodePixelFormat( const char* pArg )
 {
-	if ( ( _stricmp( pArg, "1bpp" ) == 0 ) || ( _stricmp( pArg, "cpc2" ) == 0 ) )
+	if ( _stricmp( pArg, "1bpp" ) == 0 )
 	{
 		return PixelFormat::PACKED_1;
 	}
@@ -55,6 +55,10 @@ PixelFormat DecodePixelFormat( const char* pArg )
 	else if ( _stricmp( pArg, "cpc1" ) == 0 )
 	{
 		return PixelFormat::AMSTRAD_CPC_M1;
+	}
+	else if ( _stricmp( pArg, "cpc2" ) == 0 )
+	{
+		return PixelFormat::AMSTRAD_CPC_M2;
 	}
 
 	return PixelFormat::UNKNOWN;
@@ -90,6 +94,10 @@ void PrintPixelFormat( PixelFormat pf )
 
 	case PixelFormat::AMSTRAD_CPC_M1:
 		printf( "Amstrad CPC mode 1" );
+		break;
+
+	case PixelFormat::AMSTRAD_CPC_M2:
+		printf( "Amstrad CPC mode 2" );
 		break;
 
 	}

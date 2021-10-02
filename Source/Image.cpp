@@ -51,12 +51,13 @@ void Image::Plot( int x, int y, uint32_t data )
 		break;
 	
 	case PixelFormat::PACKED_1:
+	case PixelFormat::AMSTRAD_CPC_M2:
 		{
 			offset = ( x >> 3 ) + y * _pitch;
 			uint8_t* p = _pData + offset;
 
 			uint8_t mask;
-			mask = 1 << ( 7- (  x & 7 ) );
+			mask = 1 << ( 7- ( x & 7 ) );
 
 			if ( data & 1 )
 			{
@@ -229,6 +230,7 @@ uint32_t Image::Peek( int x, int y ) const
 		break;
 
 	case PixelFormat::PACKED_1:
+	case PixelFormat::AMSTRAD_CPC_M2:
 		{
 			offset = ( x >> 3 ) + y * _pitch;
 			uint8_t* p = _pData + offset;
@@ -325,6 +327,7 @@ void Image::Create( PixelFormat fmt, uint16_t width, uint16_t height )
 	{
 	
 	case PixelFormat::PACKED_1:
+	case PixelFormat::AMSTRAD_CPC_M2:
 		_pitch = ( width + 7 ) / 8;
 		_stride = _pitch * 8;
 		break;
