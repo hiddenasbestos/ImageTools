@@ -82,13 +82,15 @@ static Tool gTools[] =
 	//-----------------
 
 	{
-		"export", Export, "Export a raw image in a new pixel format.", "<input> <output> [-tile WxH] [-shift R] [-append]\n\t[-H###] [-pf format]",
+		"export", Export, "Export a raw image in a new pixel format.", "<input> <output> [-tile WxH] [-shift R] [-append]\n\t[-2x] [-H###] [-pf format]",
 		"  <input>      An image file to read. (Indexed .PNG only)\n\n"
 		"  <output>     The output file.\n\n"
 		"  -tile WxH    Split the input image into tiles of WxH pixels and output as\n"
 		"               concatenated chunks. Tiles are split in row-major order.\n\n"
+		
 		"  -shift R     Shift output to the right by R pixels.\n"
-		"  -append      Append to the output file, rather than overwriting it.\n\n"
+		"  -append      Append to the output file, rather than overwriting it.\n"
+		"  -2x          Double the width of the input image before exporting.\n\n"
 
 		HELP_BLOCK_HEADER
 
@@ -98,15 +100,17 @@ static Tool gTools[] =
 	},
 
 	{
-		"mask", Mask, "Extract a bit mask from an image.", "<input> <output> [-tile WxH] [-index I] [-not]\n\t[-shift R] [-append] [-H###] [-pf format]",
+		"mask", Mask, "Extract a bit mask from an image.", "<input> <output> [-tile WxH] [-index I] [-not]\n\t[-shift R] [-append] [-2x] [-H###] [-pf format]",
 		"  <input>      An image file to read. (Indexed .PNG only)\n\n"
 		"  <output>     The output file.\n\n"
 		"  -tile WxH    Split the input image into tiles of WxH pixels and output as\n"
 		"               concatenated chunks. Tiles are split in row-major order.\n\n"
+		
 		"  -index I     Specify the index of pixels to extract. Default 0.\n"
 		"  -not         Invert the output. Including border/shifted area.\n"
 		"  -shift R     Shift output to the right by R pixels.\n"
-		"  -append      Append to the output file, rather than overwriting it.\n\n"
+		"  -append      Append to the output file, rather than overwriting it.\n"
+		"  -2x          Double the width of the input image.\n\n"
 
 		HELP_BLOCK_HEADER
 

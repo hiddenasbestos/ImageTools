@@ -67,6 +67,11 @@ public:
 
 	uint8_t* GetRowPtr( uint16_t row );
 
+	PixelFormat GetPixelFormat() const
+	{
+		return _pixelFmt;
+	}
+
 	uint16_t GetWidth() const
 	{
 		return _width;

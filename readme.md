@@ -21,7 +21,7 @@ Export a raw image in a new pixel format.
 
 **Usage**
 ```
- ImageTools export <input> <output> [-tile WxH] [-shift R] [-append] [-H###] [-pf format]
+ ImageTools export <input> <output> [-tile WxH] [-shift R] [-append] [-2x] [-H###] [-pf format]
 
   <input>      An image file to read. (Indexed .PNG only)
 
@@ -32,6 +32,7 @@ Export a raw image in a new pixel format.
 
   -shift R     Shift output to the right by R pixels.
   -append      Append to the output file, rather than overwriting it.
+  -2x          Double the width of the input image before exporting.
 
   -H###        Add a header. ### is a string of codes as follows:
 
@@ -81,7 +82,7 @@ Extract a bit mask from an image.
 
 **Usage**
 ```
- ImageTools mask <input> <output> [-tile WxH] [-index I] [-not] [-shift R] [-append] [-H###] [-pf format]
+ ImageTools mask <input> <output> [-tile WxH] [-index I] [-not] [-shift R] [-append] [-2x] [-H###] [-pf format]
 
   <input>      An image file to read. (Indexed .PNG only)
 
@@ -94,6 +95,7 @@ Extract a bit mask from an image.
   -not         Invert the output. Including border/shifted area.
   -shift R     Shift output to the right by R pixels.
   -append      Append to the output file, rather than overwriting it.
+  -2x          Double the width of the input image.
 
   -H###        Add a header. ### is a string of codes as follows:
 

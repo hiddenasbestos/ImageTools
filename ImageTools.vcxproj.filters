@@ -13,15 +13,15 @@
     <Filter Include="3rdParty\zlib-1.2.11">
       <UniqueIdentifier>{651a353d-dafc-4f1c-bdc6-f240660531b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\tools">
+      <UniqueIdentifier>{e646833d-1527-4d01-8b52-32cd2ef61fa3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ImageTools.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\utils.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\mask.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="3rdParty\lpng1637\png.c">
@@ -118,7 +118,10 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\export.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\mask.cpp">
+      <Filter>Source\tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

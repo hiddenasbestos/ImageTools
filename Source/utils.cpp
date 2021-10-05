@@ -329,7 +329,7 @@ void Info( const char* pName, ... )
 //------------------------------------------------------------------------------
 // LoadImage
 //------------------------------------------------------------------------------
-int LoadImage( const char* pInputName, Image& image, ImageInfo& imageInfo )
+int LoadImage( const char* pInputName, Image& image, ImageInfo& imageInfo, eLoadImageMode loadImageMode )
 {
 	FileReader reader;
 	Loader imgLoader;
@@ -340,17 +340,67 @@ int LoadImage( const char* pInputName, Image& image, ImageInfo& imageInfo )
 	bool bLoadResult = false;
 	if ( reader.LoadFile( pInputName ) )
 	{
-		bLoadResult = imgLoader.LoadTo( reader, image, &imageInfo, Loader::WANT_IDX8 );
+		switch ( loadImageMode )
+		{
+
+		case LOADIMAGE_DEFAULT:
+			bLoadResult = imgLoader.LoadTo( reader, image, &imageInfo, Loader::WANT_IDX8 );
+			break;
+
+		case LOADIMAGE_2X:
+
+			{
+				Image temp;
+
+				bLoadResult = imgLoader.LoadTo( reader, temp, &imageInfo, Loader::WANT_IDX8 );
+
+				if ( bLoadResult )
+				{
+					// Duplicate image at 2x width.
+					image.Create( temp.GetPixelFormat(), temp.GetWidth() * 2, temp.GetHeight() );
+
+					for ( uint32_t y = 0; y < temp.GetHeight(); ++y )
+					{
+						for ( uint32_t x = 0; x < temp.GetWidth(); ++x )
+						{
+							// ... read source image.
+							uint32_t copy;
+							copy = temp.Peek( x, y );
+
+							// ... write to image, twice.
+							image.Plot( x * 2, y, copy );
+							image.Plot( ( x * 2 ) + 1, y, copy );
+						}
+					}
+
+					// Patch image info
+					imageInfo.width *= 2;
+				}
+			}
+
+			break;
+
+		}; // switch ( loadImageMode )
 	}
 
 	// Failed?
 	if ( bLoadResult )
 	{
-		printf( "OK (%dx%d)\n", imageInfo.width, imageInfo.height );
+		switch ( loadImageMode )
+		{
+
+		case LOADIMAGE_DEFAULT:
+			printf( "OK (%dx%d)\n", imageInfo.width, imageInfo.height );
+			break;
+
+		case LOADIMAGE_2X:
+			printf( "OK (%dx%d) [2x]\n", imageInfo.width, imageInfo.height );
+			break;
+
+		}
 	}
 	else
 	{
-		printf( "FAILED\n" );
 		PrintError( "Failed to load image." );
 		return 1;
 	}
@@ -482,7 +532,6 @@ int WriteImage_Fbin( Image& image, const char* pOutputName, std::string& header,
 	err = fopen_s( &fp_out, pOutputName, bAppend ? "ab" : "wb" );
 	if ( err != 0 || fp_out == nullptr )
 	{
-		printf( "FAILED\n" );
 		PrintError( "Cannot open output file \"%s\"", pOutputName );
 		return 1;
 	}

@@ -41,6 +41,7 @@ struct OptionsExport
 	bool bAppend = false;
 	int iTileW = 0;
 	int iTileH = 0;
+	eLoadImageMode loadImageMode = LOADIMAGE_DEFAULT;
 
 	std::string header;
 };
@@ -160,6 +161,10 @@ static int ParseArgs( int argc, char** argv, OptionsExport& opt )
 			else if ( _stricmp( pArg, "-append" ) == 0 )
 			{
 				opt.bAppend = true;
+			}
+			else if ( _stricmp( pArg, "-2x" ) == 0 )
+			{
+				opt.loadImageMode = LOADIMAGE_2X;
 			}
 			else if ( pArg[ 1 ] == 'H' )
 			{
@@ -310,7 +315,7 @@ int Export( int argc, char** argv )
 	}
 
 	// Load image
-	if ( LoadImage( opt.pInputName, image, imageInfo ) )
+	if ( LoadImage( opt.pInputName, image, imageInfo, opt.loadImageMode ) )
 	{
 		return 1; // ERROR
 	}
