@@ -43,7 +43,7 @@ struct OptionsMask
 	bool bInvert = false;
 	int iTileW = 0;
 	int iTileH = 0;
-	eLoadImageMode loadImageMode = LOADIMAGE_DEFAULT;
+	eLoadImageMode loadImageMode = eLoadImageMode::DEFAULT;
 
 	std::string header;
 };
@@ -198,7 +198,7 @@ static int ParseArgs( int argc, char** argv, OptionsMask& opt )
 			}
 			else if ( _stricmp( pArg, "-2x" ) == 0 )
 			{
-				opt.loadImageMode = LOADIMAGE_2X;
+				opt.loadImageMode = eLoadImageMode::SCALE_2X;
 			}
 			else if ( _stricmp( pArg, "-not" ) == 0 )
 			{

@@ -343,11 +343,11 @@ int LoadImage( const char* pInputName, Image& image, ImageInfo& imageInfo, eLoad
 		switch ( loadImageMode )
 		{
 
-		case LOADIMAGE_DEFAULT:
+		case eLoadImageMode::DEFAULT:
 			bLoadResult = imgLoader.LoadTo( reader, image, &imageInfo, Loader::WANT_IDX8 );
 			break;
 
-		case LOADIMAGE_2X:
+		case eLoadImageMode::SCALE_2X:
 
 			{
 				Image temp;
@@ -389,11 +389,11 @@ int LoadImage( const char* pInputName, Image& image, ImageInfo& imageInfo, eLoad
 		switch ( loadImageMode )
 		{
 
-		case LOADIMAGE_DEFAULT:
+		case eLoadImageMode::DEFAULT:
 			printf( "OK (%dx%d)\n", imageInfo.width, imageInfo.height );
 			break;
 
-		case LOADIMAGE_2X:
+		case eLoadImageMode::SCALE_2X:
 			printf( "OK (%dx%d) [2x]\n", imageInfo.width, imageInfo.height );
 			break;
 

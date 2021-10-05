@@ -41,7 +41,7 @@ struct OptionsExport
 	bool bAppend = false;
 	int iTileW = 0;
 	int iTileH = 0;
-	eLoadImageMode loadImageMode = LOADIMAGE_DEFAULT;
+	eLoadImageMode loadImageMode = eLoadImageMode::DEFAULT;
 
 	std::string header;
 };
@@ -164,7 +164,7 @@ static int ParseArgs( int argc, char** argv, OptionsExport& opt )
 			}
 			else if ( _stricmp( pArg, "-2x" ) == 0 )
 			{
-				opt.loadImageMode = LOADIMAGE_2X;
+				opt.loadImageMode = eLoadImageMode::SCALE_2X;
 			}
 			else if ( pArg[ 1 ] == 'H' )
 			{

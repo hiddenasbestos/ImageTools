@@ -73,10 +73,10 @@ void PrintError( const char* pName, ... );
 // Print a standard info message to stdout. Doesn't end with an extra newline.
 void Info( const char* pName, ... );
 
-enum eLoadImageMode
+enum class eLoadImageMode
 {
-	LOADIMAGE_DEFAULT,
-	LOADIMAGE_2X,
+	DEFAULT,
+	SCALE_2X,
 };
 
 // Helper to load an image. Return 0 on success, 1 on error.
