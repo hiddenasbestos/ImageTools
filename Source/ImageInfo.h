@@ -63,6 +63,9 @@ struct ImageInfo
 	// Indexed colour mode?
 	bool bIndexed;
 
+	// Highest used index value in the image (or zero for direct colour images)
+	uint32_t uMaxIndex;
+
 	// Palette.
 	std::vector< uint32_t > palette;
 
@@ -78,6 +81,7 @@ struct ImageInfo
 		width = 0;
 		height = 0;
 		bIndexed = false;
+		uMaxIndex = 0;
 		palette.clear();
 	}
 

@@ -560,15 +560,19 @@ bool cPNG::LoadTo_Internal( void* _png_ptr,
 		png_bytep p_src_row;
 		p_src_row = reinterpret_cast< png_bytep >( malloc( row_bytes ) );
 
+		uint32_t uMaxIndex = 0; // <-- computed below.
 
 		// Set colour mode info.
 		if ( p_info )
 		{
+			p_info->uMaxIndex = 0; // clear safe
 			p_info->bIndexed = ( channels == UINT32_MAX ) ? true : false;
 
-			// Get palette RGB values
 			if ( p_info->bIndexed )
 			{
+				//
+				// --Get palette
+
 				png_bytep trans_alpha;
 				int num_trans;
 				png_color_16p trans_color;
@@ -631,16 +635,22 @@ bool cPNG::LoadTo_Internal( void* _png_ptr,
 								// simple: 1 src byte = 8 indices (LSB[idx7:idx6:idx5:idx4:idx3:idx2:idx1:idx0]MSB)
 								for ( uint32_t x = 0; x < real_image_width; ++x )
 								{
+									uint32_t index;
+
 									const uint8_t sub = ( x & 7 );
 									if ( sub == 0 )
 									{
 										feed = *p++; // feed in up to 8 new indices.
-										image.Plot( x, y, feed >> 7 ); // first index
+										index = ( feed >> 7 ); // first index
 									}
 									else
 									{
-										image.Plot( x, y, ( feed >> ( 7 - sub ) ) & 1 );
+										index = ( feed >> ( 7 - sub ) ) & 1;
 									}
+
+									// Store pixel, and grow the max index.
+									image.Plot( x, y, index );
+									uMaxIndex = std::max( uMaxIndex, index );
 								}
 							}
 							break;
@@ -651,16 +661,22 @@ bool cPNG::LoadTo_Internal( void* _png_ptr,
 								// simple: 1 src byte = 4 indices (LSB[idx3:idx2:idx1:idx0]MSB)
 								for ( uint32_t x = 0; x < real_image_width; ++x )
 								{
+									uint32_t index;
+
 									const uint8_t sub = ( x & 3 );
 									if ( sub == 0 )
 									{
 										feed = *p++; // feed in up to 4 new indices.
-										image.Plot( x, y, feed >> 6 ); // first index
+										index = ( feed >> 6 ); // first index
 									}
 									else
 									{
-										image.Plot( x, y, ( feed >> ( 6 - ( sub << 1 ) ) ) & 3 );
+										index = ( feed >> ( 6 - ( sub << 1 ) ) ) & 3;
 									}
+
+									// Store pixel, and grow the max index.
+									image.Plot( x, y, index );
+									uMaxIndex = std::max( uMaxIndex, index );
 								}
 							}
 							break;
@@ -671,17 +687,23 @@ bool cPNG::LoadTo_Internal( void* _png_ptr,
 								// simple: 1 src byte = 2 indices (LSB[idx1:idx0]MSB)
 								for ( uint32_t x = 0; x < real_image_width; ++x )
 								{
+									uint32_t index;
+
 									if ( x & 1 )
 									{
 										// odd
-										image.Plot( x, y, feed & 0xF ); // second index.
+										index = ( feed & 0xF ); // second index.
 									}
 									else
 									{
 										// even
 										feed = *p++; // feed in up to 2 new indices.
-										image.Plot( x, y, feed >> 4 ); // first index
+										index = ( feed >> 4 ); // first index
 									}
+
+									// Store pixel, and grow the max index.
+									image.Plot( x, y, index );
+									uMaxIndex = std::max( uMaxIndex, index );
 								}
 							}
 							break;
@@ -693,7 +715,11 @@ bool cPNG::LoadTo_Internal( void* _png_ptr,
 								// simple: 1 src byte = 1 index; no need to check for index overflow.
 								for ( uint32_t x = 0; x < real_image_width; ++x )
 								{
-									image.Plot( x, y, *p++ );
+									uint32_t index = *p++;
+
+									// Store pixel, and grow the max index.
+									image.Plot( x, y, index );
+									uMaxIndex = std::max( uMaxIndex, index );
 								}
 							}
 							else
@@ -717,6 +743,7 @@ bool cPNG::LoadTo_Internal( void* _png_ptr,
 									}
 
 									image.Plot( x, y, feed );
+									uMaxIndex = std::max( uMaxIndex, static_cast< uint32_t >( feed ) );
 								}
 							}
 							break;
@@ -727,6 +754,12 @@ bool cPNG::LoadTo_Internal( void* _png_ptr,
 							return false;
 
 						}; // switch ( png_bit_depth )
+					}
+
+					// store it.
+					if ( p_info )
+					{
+						p_info->uMaxIndex = uMaxIndex;
 					}
 
 					break; // end of indexed mode
