@@ -24,6 +24,7 @@ SOFTWARE.
 
 #include <cstring>
 #include <cstdio>
+#include <cstdint>
 
 #include "PixelFormat.h"
 
@@ -73,48 +74,79 @@ PixelFormat DecodePixelFormat( const char* pArg )
 }
 
 //------------------------------------------------------------------------------
-// PrintPixelFormat
+// PixelFormatToString
 //------------------------------------------------------------------------------
-void PrintPixelFormat( PixelFormat pf )
+const char* PixelFormatToString( PixelFormat pf )
 {
 	switch ( pf )
 	{
 
 	case PixelFormat::PACKED_1:
-		printf( "packed 1-BPP" );
-		break;
+		return "packed 1-BPP";
 
 	case PixelFormat::PACKED_2:
-		printf( "packed 2-BPP" );
-		break;
+		return "packed 2-BPP";
 
 	case PixelFormat::IBM_CGA:
-		printf( "IBM CGA" );
-		break;
+		return "IBM CGA";
 
 	case PixelFormat::ATART_ST_M0:
-		printf( "Atari ST mode 0" );
-		break;
+		return "Atari ST mode 0";
 
 	case PixelFormat::ATART_ST_M1:
-		printf( "Atari ST mode 1" );
-		break;
+		return "Atari ST mode 1";
 
 	case PixelFormat::ATART_ST_M2:
-		printf( "Atari ST mode 2" );
-		break;
+		return "Atari ST mode 2";
 
 	case PixelFormat::AMSTRAD_CPC_M0:
-		printf( "Amstrad CPC mode 0" );
-		break;
+		return "Amstrad CPC mode 0";
 
 	case PixelFormat::AMSTRAD_CPC_M1:
-		printf( "Amstrad CPC mode 1" );
-		break;
+		return "Amstrad CPC mode 1";
 
 	case PixelFormat::AMSTRAD_CPC_M2:
-		printf( "Amstrad CPC mode 2" );
-		break;
+		return "Amstrad CPC mode 2";
 
 	}
+
+	return nullptr;
+}
+
+//------------------------------------------------------------------------------
+// PixelFormatMaxIndex
+//------------------------------------------------------------------------------
+uint32_t PixelFormatMaxIndex( PixelFormat format )
+{
+	switch ( format )
+	{
+
+	default:
+	case PixelFormat::UNKNOWN:
+	case PixelFormat::CHUNKY_16:
+	case PixelFormat::CHUNKY_32:
+		return 0;
+
+	case PixelFormat::PACKED_1:
+	case PixelFormat::ATART_ST_M2:
+	case PixelFormat::AMSTRAD_CPC_M2:
+		return 1 << 1;
+
+	case PixelFormat::PACKED_2:
+	case PixelFormat::ATART_ST_M1:
+	case PixelFormat::AMSTRAD_CPC_M1:
+	case PixelFormat::IBM_CGA:
+		return 1 << 2;
+
+	case PixelFormat::PACKED_4:
+	case PixelFormat::ATART_ST_M0:
+	case PixelFormat::AMSTRAD_CPC_M0:
+		return 1 << 4;
+		break;
+
+	case PixelFormat::CHUNKY_8:
+		return 1 << 8;
+		break;
+
+	}; // switch ( format )
 }

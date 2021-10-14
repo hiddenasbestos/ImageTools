@@ -75,5 +75,9 @@ enum class PixelFormat
 PixelFormat DecodePixelFormat( const char* pArg );
 
 // Print a pixel format as text
-void PrintPixelFormat( PixelFormat pf );
+const char* PixelFormatToString( PixelFormat pf );
+
+// Max permitted index for a given pixel format
+uint32_t PixelFormatMaxIndex( PixelFormat format );
+
 

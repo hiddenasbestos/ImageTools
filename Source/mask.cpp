@@ -383,11 +383,7 @@ int Mask( int argc, char** argv )
 
 	// Build mask
 	Image mask;
-	Info( "Generating '" );
-
-	PrintPixelFormat( opt.dataOutFormat );
-
-	printf( "' format mask from palette index %d.\n", opt.iMaskIndex );
+	Info( "Generating '%s' format mask from palette index %d.\n", PixelFormatToString( opt.dataOutFormat ), opt.iMaskIndex );
 	
 	if ( opt.iShift )
 	{

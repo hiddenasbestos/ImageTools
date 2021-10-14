@@ -320,13 +320,17 @@ int Export( int argc, char** argv )
 		return 1; // ERROR
 	}
 
+	// Within acceptable maximum index?
+	const uint32_t uMaxPermittedIndex = PixelFormatMaxIndex( opt.dataOutFormat );
+	if ( uMaxPermittedIndex > 0 && imageInfo.uMaxIndex >= uMaxPermittedIndex )
+	{
+		Info( "WARNING: Image contains an index (#%d) which exceeds the maximum limit.\n", imageInfo.uMaxIndex );
+		Info( "WARNING: Pixel format '%s' requires indices from 0 - %d.\n", PixelFormatToString( opt.dataOutFormat ), uMaxPermittedIndex - 1 );
+	}
+
 	// Build output
 	Image output;
-	Info( "Exporting '" );
-
-	PrintPixelFormat( opt.dataOutFormat );
-
-	printf( "' format raw image.\n" );
+	Info( "Exporting '%s' format raw image.\n", PixelFormatToString( opt.dataOutFormat ) );
 	
 	if ( opt.iShift )
 	{
