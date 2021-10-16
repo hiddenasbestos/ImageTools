@@ -2,7 +2,7 @@
 ImageTools
 ----------
 
-A combined suite of utilities for manipulating images.
+A combined suite of utilities for exporting images to retro formats.
 It was developed for use on Windows but might compile on other systems.
 Released under the MIT License.
 
@@ -78,7 +78,7 @@ Export an image for use with Amstrad CPC mode 1.
 
 * The border on the left (when shifting) and right (when the source width is not an exact multiple of bytes/words) is set to index 0.
 
-* Pixel formats 'GB', 'NES' and 'SEGA' automatically split into 8x8 tiles and ignore the `-tiles` option.
+* Pixel formats 'GB', 'NES' and 'SEGA' automatically split into 8x8 tiles and ignore the `-tile` option.
 
 
 ---
@@ -151,5 +151,5 @@ Converts an image file into a background erasing mask followed by a pixel image 
 
 * The border on the left (when shifting) and right (when the source width is not an exact multiple of bytes/words) is assumed to contain pixels of index 0.
 
-* Pixel formats 'GB', 'NES' and 'SEGA' automatically split into 8x8 tiles and ignore the `-tiles` option.
+* Pixel formats 'GB', 'NES' and 'SEGA' automatically split into 8x8 tiles and ignore the `-tile` option.
 
