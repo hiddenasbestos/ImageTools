@@ -451,19 +451,21 @@ void Image::Create( PixelFormat fmt, uint16_t width, uint16_t height )
 	case PixelFormat::GAMEBOY:
 		_pitch = ( ( width + 7 ) / 8 ) * 2;
 		_stride = _pitch * 4;
+		_height = ( ( height + 7 ) / 8 ) * 8; // ensure 8 pixel lines
 		break;
 
 	case PixelFormat::SEGA_VDP:
 		_pitch = ( ( width + 7 ) / 8 ) * 4;
 		_stride = _pitch * 2;
+		_height = ( ( height + 7 ) / 8 ) * 8; // ensure 8 pixel lines
 		break;
 
 	}
 
 	uint32_t uByteCount;
-	uByteCount = _pitch * height;
+	uByteCount = _pitch * _height;
 
-	_pData = reinterpret_cast< uint8_t* >( calloc( height, _pitch ) );
+	_pData = reinterpret_cast< uint8_t* >( calloc( _height, _pitch ) );
 }
 
 void Image::Destroy()
