@@ -31,10 +31,10 @@ Export a raw image in a new pixel format.
                concatenated chunks. Tiles are split in row-major order.
 
   -shift R     Shift output to the right by R pixels.
-               Not supported by GB, NES or SEGA pixel formats.
+               Not supported by GB, NES or SMS pixel formats.
   -append      Append to the output file, rather than overwriting it.
   -2x          Double the width of the input image before exporting.
-               Not supported by GB, NES or SEGA pixel formats.
+               Not supported by GB, NES or SMS pixel formats.
 
   -H###        Add a header. ### is a string of codes as follows:
 
@@ -60,7 +60,7 @@ Export a raw image in a new pixel format.
     CPC2       Amstrad CPC mode 2 (640x200,2)
     GB         Game Boy
     NES        NES / Famicom
-    SEGA       SEGA VDP (Genesis / Master System / Game Gear)
+    SMS        Master System / Game Gear
     ST0        Atari ST mode 0 (Low)
     ST1        Atari ST mode 1 (Medium)
     ST2        Atari ST mode 2 (High)
@@ -78,7 +78,7 @@ Export an image for use with Amstrad CPC mode 1.
 
 * The border on the left (when shifting) and right (when the source width is not an exact multiple of bytes/words) is set to index 0.
 
-* Pixel formats 'GB', 'NES' and 'SEGA' automatically split into 8x8 tiles and ignore the `-tile` option.
+* Pixel formats 'GB', 'NES' and 'SMS' automatically split into 8x8 tiles and ignore the `-tile` option.
 
 
 ---
@@ -101,10 +101,10 @@ Extract a bit mask from an image.
   -index I     Specify the index of pixels to extract. Default 0.
   -not         Invert the output. Including border/shifted area.
   -shift R     Shift output to the right by R pixels.
-               Not supported by GB, NES or SEGA pixel formats.
+               Not supported by GB, NES or SMS pixel formats.
   -append      Append to the output file, rather than overwriting it.
   -2x          Double the width of the input image.
-               Not supported by GB, NES or SEGA pixel formats.
+               Not supported by GB, NES or SMS pixel formats.
 
   -H###        Add a header. ### is a string of codes as follows:
 
@@ -130,7 +130,7 @@ Extract a bit mask from an image.
     CPC2       Amstrad CPC mode 2 (640x200,2)
     GB         Game Boy
     NES        NES / Famicom
-    SEGA       SEGA VDP (Genesis / Master System / Game Gear)
+    SMS        Master System / Game Gear
     ST0        Atari ST mode 0 (Low)
     ST1        Atari ST mode 1 (Medium)
     ST2        Atari ST mode 2 (High)
@@ -151,5 +151,5 @@ Converts an image file into a background erasing mask followed by a pixel image 
 
 * The border on the left (when shifting) and right (when the source width is not an exact multiple of bytes/words) is assumed to contain pixels of index 0.
 
-* Pixel formats 'GB', 'NES' and 'SEGA' automatically split into 8x8 tiles and ignore the `-tile` option.
+* Pixel formats 'GB', 'NES' and 'SMS' automatically split into 8x8 tiles and ignore the `-tile` option.
 

@@ -69,9 +69,9 @@ PixelFormat DecodePixelFormat( const char* pArg )
 	{
 		return PixelFormat::AMSTRAD_CPC_M2;
 	}
-	else if ( _stricmp( pArg, "sega" ) == 0 )
+	else if ( ( _stricmp( pArg, "sms" ) == 0 ) || ( _stricmp( pArg, "gg" ) == 0 ) )
 	{
-		return PixelFormat::SEGA_VDP;
+		return PixelFormat::MASTER_SYSTEM;
 	}
 	else if ( _stricmp( pArg, "gb" ) == 0 )
 	{
@@ -120,8 +120,8 @@ const char* PixelFormatToString( PixelFormat pf )
 	case PixelFormat::AMSTRAD_CPC_M2:
 		return "Amstrad CPC mode 2";
 
-	case PixelFormat::SEGA_VDP:
-		return "SEGA VDP";
+	case PixelFormat::MASTER_SYSTEM:
+		return "Master System / Game Gear";
 
 	case PixelFormat::GAMEBOY:
 		return "Game Boy";
@@ -164,7 +164,7 @@ uint32_t PixelFormatMaxIndex( PixelFormat format )
 	case PixelFormat::PACKED_4:
 	case PixelFormat::ATART_ST_M0:
 	case PixelFormat::AMSTRAD_CPC_M0:
-	case PixelFormat::SEGA_VDP:
+	case PixelFormat::MASTER_SYSTEM:
 		return 1 << 4; // 16 colours
 		break;
 
@@ -187,7 +187,7 @@ bool PixelFormatIsPattern8x8( PixelFormat format )
 	case PixelFormat::UNKNOWN:
 		return false;
 
-	case PixelFormat::SEGA_VDP:
+	case PixelFormat::MASTER_SYSTEM:
 	case PixelFormat::GAMEBOY:
 	case PixelFormat::NES:
 		return true;

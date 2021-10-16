@@ -528,7 +528,7 @@ void ValidateLoadImageMode( PixelFormat pf, eLoadImageMode& mode )
 	if ( mode == eLoadImageMode::SCALE_2X )
 	{
 		if ( pf == PixelFormat::GAMEBOY ||
-			 pf == PixelFormat::SEGA_VDP ||
+			 pf == PixelFormat::MASTER_SYSTEM ||
 			 pf == PixelFormat::NES )
 		{
 			// Disable
@@ -546,7 +546,7 @@ void ValidateShift( PixelFormat pf, int& iShift )
 	if ( iShift )
 	{
 		if ( pf == PixelFormat::GAMEBOY ||
-			 pf == PixelFormat::SEGA_VDP ||
+			 pf == PixelFormat::MASTER_SYSTEM ||
 			 pf == PixelFormat::NES )
 		{
 			// Disable

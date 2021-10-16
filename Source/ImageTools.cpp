@@ -71,7 +71,7 @@ extern int Mask( int argc, char** argv );
 		"    CPC2       Amstrad CPC mode 2 (640x200,2)\n"									\
 		"    GB         Game Boy\n"															\
 		"    NES        NES / Famicom\n"													\
-		"    SEGA       SEGA VDP (Genesis / Master System / Game Gear)\n"					\
+		"    SMS        Master System / Game Gear\n"										\
 		"    ST0        Atari ST mode 0 (Low)\n"											\
 		"    ST1        Atari ST mode 1 (Medium)\n"											\
 		"    ST2        Atari ST mode 2 (High)\n"

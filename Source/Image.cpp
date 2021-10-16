@@ -234,7 +234,7 @@ void Image::Plot( int x, int y, uint32_t data )
 		}
 		break;
 
-	case PixelFormat::SEGA_VDP:
+	case PixelFormat::MASTER_SYSTEM:
 		{
 			// ... select pixel within the 8-pixel plane.
 			int block = ( x >> 3 );
@@ -474,7 +474,7 @@ void Image::Create( PixelFormat fmt, uint16_t width, uint16_t height )
 		_height = ( ( height + 7 ) / 8 ) * 8; // ensure 8 pixel lines
 		break;
 
-	case PixelFormat::SEGA_VDP:
+	case PixelFormat::MASTER_SYSTEM:
 		_pitch = ( ( width + 7 ) / 8 ) * 4;
 		_stride = _pitch * 2;
 		_height = ( ( height + 7 ) / 8 ) * 8; // ensure 8 pixel lines
