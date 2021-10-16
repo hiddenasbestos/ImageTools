@@ -237,8 +237,8 @@ void Image::Plot( int x, int y, uint32_t data )
 	case PixelFormat::SEGA_VDP:
 		{
 			// ... select pixel within the 8-pixel plane.
-			uint16_t block = ( x >> 3 );
-			uint16_t mask = 0x80 >> ( x & 0x7 );
+			int block = ( x >> 3 );
+			uint8_t mask = 0x80 >> ( x & 0x7 );
 
 			// ... offset to first bit-plane
 			offset = ( block * 4 ) + ( y * _pitch );
@@ -249,6 +249,22 @@ void Image::Plot( int x, int y, uint32_t data )
 			if ( data & 2 ) { p[ 1 ] |= mask; }			else { p[ 1 ] &= ~mask; }
 			if ( data & 4 ) { p[ 2 ] |= mask; }			else { p[ 2 ] &= ~mask; }
 			if ( data & 8 ) { p[ 3 ] |= mask; }			else { p[ 3 ] &= ~mask; }
+		}
+		break;
+
+	case PixelFormat::GAMEBOY:
+		{
+			// ... select pixel within the 8-pixel plane.
+			int block = ( x >> 3 );
+			uint8_t mask = 0x80 >> ( x & 0x7 );
+
+			// ... offset to first bit-plane
+			offset = ( block * 2 ) + ( y * _pitch );
+			uint8_t* p = &( _pData[ offset ] );
+
+			// ... set/clear bit planes
+			if ( data & 1 ) { p[ 0 ] |= mask; }			else { p[ 0 ] &= ~mask; }
+			if ( data & 2 ) { p[ 1 ] |= mask; }			else { p[ 1 ] &= ~mask; }
 		}
 		break;
 
@@ -429,6 +445,11 @@ void Image::Create( PixelFormat fmt, uint16_t width, uint16_t height )
 
 	case PixelFormat::IBM_CGA:
 		_pitch = ( width + 3 ) / 4;
+		_stride = _pitch * 4;
+		break;
+
+	case PixelFormat::GAMEBOY:
+		_pitch = ( ( width + 7 ) / 8 ) * 2;
 		_stride = _pitch * 4;
 		break;
 
