@@ -521,6 +521,42 @@ void WriteImage( Image& image, FILE* fp_out )
 }
 
 //------------------------------------------------------------------------------
+// ValidateLoadImageMode
+//------------------------------------------------------------------------------
+void ValidateLoadImageMode( PixelFormat pf, eLoadImageMode& mode )
+{
+	if ( mode == eLoadImageMode::SCALE_2X )
+	{
+		if ( pf == PixelFormat::GAMEBOY ||
+			 pf == PixelFormat::SEGA_VDP ||
+			 pf == PixelFormat::NES )
+		{
+			// Disable
+			Info( "WARNING: -2x is not supported for this pixel format.\n" );
+			mode = eLoadImageMode::DEFAULT;
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+// ValidateShift
+//------------------------------------------------------------------------------
+void ValidateShift( PixelFormat pf, int& iShift )
+{
+	if ( iShift )
+	{
+		if ( pf == PixelFormat::GAMEBOY ||
+			 pf == PixelFormat::SEGA_VDP ||
+			 pf == PixelFormat::NES )
+		{
+			// Disable
+			Info( "WARNING: -shift is not supported for this pixel format.\n" );
+			iShift = 0;
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
 // WriteImage_Fbin
 //------------------------------------------------------------------------------
 int WriteImage_Fbin( Image& image, const char* pOutputName, std::string& header, bool bAppend, int iTileCount, int iTileHeight )

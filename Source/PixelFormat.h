@@ -68,6 +68,16 @@ enum class PixelFormat
 
 	// IBM CGA. BIOS mode 4/5 (320x200x4) 4 pixels in 8 bits, chunky
 	IBM_CGA,
+
+	// SEGA Genesis / Master System / Game Gear
+	SEGA_VDP,
+
+	// Game Boy
+	GAMEBOY,
+
+	// NES / Famicom
+	NES,
+
 };
 
 // Helper to decode a string into a pixel format (case insensitive)

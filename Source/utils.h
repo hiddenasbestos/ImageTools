@@ -94,4 +94,10 @@ void WriteOutHeader( Image& image, std::string& header, FILE* fp_out, int iTileC
 // Write an image to a standard stream
 void WriteImage( Image& image, FILE* fp_out );
 
+// Validate eLoadImageMode option. Disable for tile-map formats, with a warning.
+void ValidateLoadImageMode( PixelFormat pf, eLoadImageMode& mode );
+
+// Validate shift option. Disable for tile-map formats, with a warning.
+void ValidateShift( PixelFormat pf, int& iShift );
+
 //==============================================================================

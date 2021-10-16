@@ -69,6 +69,18 @@ PixelFormat DecodePixelFormat( const char* pArg )
 	{
 		return PixelFormat::AMSTRAD_CPC_M2;
 	}
+	else if ( _stricmp( pArg, "gens" ) == 0 )
+	{
+		return PixelFormat::SEGA_VDP;
+	}
+	else if ( _stricmp( pArg, "gb" ) == 0 )
+	{
+		return PixelFormat::GAMEBOY;
+	}
+	else if ( _stricmp( pArg, "nes" ) == 0 )
+	{
+		return PixelFormat::NES;
+	}
 
 	return PixelFormat::UNKNOWN;
 }
@@ -108,6 +120,15 @@ const char* PixelFormatToString( PixelFormat pf )
 	case PixelFormat::AMSTRAD_CPC_M2:
 		return "Amstrad CPC mode 2";
 
+	case PixelFormat::SEGA_VDP:
+		return "Genesis/SMS/GG";
+
+	case PixelFormat::GAMEBOY:
+		return "Game Boy";
+
+	case PixelFormat::NES:
+		return "NES/Famicom";
+
 	}
 
 	return nullptr;
@@ -125,27 +146,30 @@ uint32_t PixelFormatMaxIndex( PixelFormat format )
 	case PixelFormat::UNKNOWN:
 	case PixelFormat::CHUNKY_16:
 	case PixelFormat::CHUNKY_32:
-		return 0;
+		return 0; // Invalid
 
 	case PixelFormat::PACKED_1:
 	case PixelFormat::ATART_ST_M2:
 	case PixelFormat::AMSTRAD_CPC_M2:
-		return 1 << 1;
+		return 1 << 1; // 2 colours
 
 	case PixelFormat::PACKED_2:
 	case PixelFormat::ATART_ST_M1:
 	case PixelFormat::AMSTRAD_CPC_M1:
 	case PixelFormat::IBM_CGA:
-		return 1 << 2;
+	case PixelFormat::NES:
+	case PixelFormat::GAMEBOY:
+		return 1 << 2; // 4 colours
 
 	case PixelFormat::PACKED_4:
 	case PixelFormat::ATART_ST_M0:
 	case PixelFormat::AMSTRAD_CPC_M0:
-		return 1 << 4;
+	case PixelFormat::SEGA_VDP:
+		return 1 << 4; // 16 colours
 		break;
 
 	case PixelFormat::CHUNKY_8:
-		return 1 << 8;
+		return 1 << 8; // 256 colours
 		break;
 
 	}; // switch ( format )

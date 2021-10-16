@@ -314,6 +314,9 @@ int Export( int argc, char** argv )
 		return 1; // ERROR
 	}
 
+	// Validate load mode.
+	ValidateLoadImageMode( opt.dataOutFormat, opt.loadImageMode );
+
 	// Load image
 	if ( LoadImage( opt.pInputName, image, imageInfo, opt.loadImageMode ) )
 	{
@@ -325,13 +328,15 @@ int Export( int argc, char** argv )
 	if ( uMaxPermittedIndex > 0 && imageInfo.uMaxIndex >= uMaxPermittedIndex )
 	{
 		Info( "WARNING: Image contains an index (#%d) which exceeds the maximum limit.\n", imageInfo.uMaxIndex );
-		Info( "WARNING: Pixel format '%s' requires indices from 0 - %d.\n", PixelFormatToString( opt.dataOutFormat ), uMaxPermittedIndex - 1 );
+		Info( "WARNING: Pixel format requires indices from 0 to %d.\n", uMaxPermittedIndex - 1 );
 	}
 
 	// Build output
 	Image output;
 	Info( "Exporting '%s' format raw image.\n", PixelFormatToString( opt.dataOutFormat ) );
 	
+	// Shift / validated
+	ValidateShift( opt.dataOutFormat, opt.iShift );
 	if ( opt.iShift )
 	{
 		Info( "Output is shifted right by %d pixels.\n", opt.iShift );

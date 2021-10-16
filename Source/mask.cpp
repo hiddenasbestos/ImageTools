@@ -375,6 +375,9 @@ int Mask( int argc, char** argv )
 		return 1; // ERROR
 	}
 
+	// Validate load mode.
+	ValidateLoadImageMode( opt.dataOutFormat, opt.loadImageMode );
+
 	// Load image
 	if ( LoadImage( opt.pInputName, image, imageInfo, opt.loadImageMode ) )
 	{
@@ -385,6 +388,8 @@ int Mask( int argc, char** argv )
 	Image mask;
 	Info( "Generating '%s' format mask from palette index %d.\n", PixelFormatToString( opt.dataOutFormat ), opt.iMaskIndex );
 	
+	// Shift / validated
+	ValidateShift( opt.dataOutFormat, opt.iShift );
 	if ( opt.iShift )
 	{
 		Info( "Output is shifted right by %d pixels.\n", opt.iShift );
