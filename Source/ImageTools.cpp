@@ -70,8 +70,8 @@ extern int Mask( int argc, char** argv );
 		"    CPC1       Amstrad CPC mode 1 (320x200,4)\n"									\
 		"    CPC2       Amstrad CPC mode 2 (640x200,2)\n"									\
 		"    GB         Game Boy\n"															\
-		"    GENS       SEGA Genesis / Master System / Game Gear\n"							\
 		"    NES        NES / Famicom\n"													\
+		"    SEGA       SEGA VDP (Genesis / Master System / Game Gear)\n"					\
 		"    ST0        Atari ST mode 0 (Low)\n"											\
 		"    ST1        Atari ST mode 1 (Medium)\n"											\
 		"    ST2        Atari ST mode 2 (High)\n"
@@ -92,10 +92,10 @@ static Tool gTools[] =
 		"               concatenated chunks. Tiles are split in row-major order.\n\n"
 		
 		"  -shift R     Shift output to the right by R pixels.\n"
-		"               Not supported by GB, GENS or NES pixel formats.\n"
+		"               Not supported by GB, NES or SEGA pixel formats.\n"
 		"  -append      Append to the output file, rather than overwriting it.\n"
 		"  -2x          Double the width of the input image before exporting.\n"
-		"               Not supported by GB, GENS or NES pixel formats.\n\n"
+		"               Not supported by GB, NES or SEGA pixel formats.\n\n"
 
 		HELP_BLOCK_HEADER
 
@@ -114,10 +114,10 @@ static Tool gTools[] =
 		"  -index I     Specify the index of pixels to extract. Default 0.\n"
 		"  -not         Invert the output. Including border/shifted area.\n"
 		"  -shift R     Shift output to the right by R pixels.\n"
-		"               Not supported by GB, GENS or NES pixel formats.\n"
+		"               Not supported by GB, NES or SEGA pixel formats.\n"
 		"  -append      Append to the output file, rather than overwriting it.\n"
 		"  -2x          Double the width of the input image.\n"
-		"               Not supported by GB, GENS or NES pixel formats.\n\n"
+		"               Not supported by GB, NES or SEGA pixel formats.\n\n"
 
 		HELP_BLOCK_HEADER
 

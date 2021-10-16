@@ -69,7 +69,7 @@ PixelFormat DecodePixelFormat( const char* pArg )
 	{
 		return PixelFormat::AMSTRAD_CPC_M2;
 	}
-	else if ( _stricmp( pArg, "gens" ) == 0 )
+	else if ( _stricmp( pArg, "sega" ) == 0 )
 	{
 		return PixelFormat::SEGA_VDP;
 	}
@@ -121,7 +121,7 @@ const char* PixelFormatToString( PixelFormat pf )
 		return "Amstrad CPC mode 2";
 
 	case PixelFormat::SEGA_VDP:
-		return "Genesis/SMS/GG";
+		return "SEGA VDP";
 
 	case PixelFormat::GAMEBOY:
 		return "Game Boy";
