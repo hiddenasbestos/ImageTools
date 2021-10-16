@@ -31,8 +31,10 @@ Export a raw image in a new pixel format.
                concatenated chunks. Tiles are split in row-major order.
 
   -shift R     Shift output to the right by R pixels.
+               Not supported by GB, NES or SEGA pixel formats.
   -append      Append to the output file, rather than overwriting it.
   -2x          Double the width of the input image before exporting.
+               Not supported by GB, NES or SEGA pixel formats.
 
   -H###        Add a header. ### is a string of codes as follows:
 
@@ -56,6 +58,9 @@ Export a raw image in a new pixel format.
     CPC0       Amstrad CPC mode 0 (160x200,16)
     CPC1       Amstrad CPC mode 1 (320x200,4)
     CPC2       Amstrad CPC mode 2 (640x200,2)
+    GB         Game Boy
+    NES        NES / Famicom
+    SEGA       SEGA VDP (Genesis / Master System / Game Gear)
     ST0        Atari ST mode 0 (Low)
     ST1        Atari ST mode 1 (Medium)
     ST2        Atari ST mode 2 (High)
@@ -96,8 +101,10 @@ Extract a bit mask from an image.
   -index I     Specify the index of pixels to extract. Default 0.
   -not         Invert the output. Including border/shifted area.
   -shift R     Shift output to the right by R pixels.
+               Not supported by GB, NES or SEGA pixel formats.
   -append      Append to the output file, rather than overwriting it.
   -2x          Double the width of the input image.
+               Not supported by GB, NES or SEGA pixel formats.
 
   -H###        Add a header. ### is a string of codes as follows:
 
@@ -121,6 +128,9 @@ Extract a bit mask from an image.
     CPC0       Amstrad CPC mode 0 (160x200,16)
     CPC1       Amstrad CPC mode 1 (320x200,4)
     CPC2       Amstrad CPC mode 2 (640x200,2)
+    GB         Game Boy
+    NES        NES / Famicom
+    SEGA       SEGA VDP (Genesis / Master System / Game Gear)
     ST0        Atari ST mode 0 (Low)
     ST1        Atari ST mode 1 (Medium)
     ST2        Atari ST mode 2 (High)
