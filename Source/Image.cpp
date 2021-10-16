@@ -268,6 +268,26 @@ void Image::Plot( int x, int y, uint32_t data )
 		}
 		break;
 
+	case PixelFormat::NES:
+		{
+			// ... which tile are we in?
+			int tile = ( x >> 3 ) + ( y >> 3 ) * ( _width >> 3 );
+
+			// ... offset to first bit of tile (tiles are 16 byte chunks)
+			int offset = tile * 16;
+			uint8_t* p = &( _pData[ offset ] );
+
+			// ... select row within tile chunk.
+			int row = ( y & 7 );
+			
+			uint8_t mask = 0x80 >> ( x & 0x7 );
+
+			// ... set/clear bit planes
+			if ( data & 1 ) { p[ row ] |= mask; } else { p[ row ] &= ~mask; }
+			if ( data & 2 ) { p[ 8 + row ] |= mask; } else { p[ 8 + row ] &= ~mask; }
+		}
+		break;
+
 	}
 }
 
@@ -457,6 +477,13 @@ void Image::Create( PixelFormat fmt, uint16_t width, uint16_t height )
 	case PixelFormat::SEGA_VDP:
 		_pitch = ( ( width + 7 ) / 8 ) * 4;
 		_stride = _pitch * 2;
+		_height = ( ( height + 7 ) / 8 ) * 8; // ensure 8 pixel lines
+		break;
+
+	case PixelFormat::NES: // treat each tile as 16 x 1 => 2 * 8
+		_width = ( ( width + 7 ) / 8 ) * 8; // ensure 8 pixel columns
+		_pitch = _width >> 2;
+		_stride = _pitch >> 1;
 		_height = ( ( height + 7 ) / 8 ) * 8; // ensure 8 pixel lines
 		break;
 
