@@ -73,6 +73,8 @@ Export an image for use with Amstrad CPC mode 1.
 
 * The border on the left (when shifting) and right (when the source width is not an exact multiple of bytes/words) is set to index 0.
 
+* Pixel formats 'GB', 'NES' and 'SEGA' automatically split into 8x8 tiles and ignore the `-tiles` option.
+
 
 ---
 
@@ -139,4 +141,5 @@ Converts an image file into a background erasing mask followed by a pixel image 
 
 * The border on the left (when shifting) and right (when the source width is not an exact multiple of bytes/words) is assumed to contain pixels of index 0.
 
+* Pixel formats 'GB', 'NES' and 'SEGA' automatically split into 8x8 tiles and ignore the `-tiles` option.
 

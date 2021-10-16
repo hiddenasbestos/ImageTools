@@ -90,4 +90,6 @@ const char* PixelFormatToString( PixelFormat pf );
 // Max permitted index for a given pixel format
 uint32_t PixelFormatMaxIndex( PixelFormat format );
 
+// Returns true if this is an 8x8 pattern based pixel format.
+bool PixelFormatIsPattern8x8( PixelFormat format );
 

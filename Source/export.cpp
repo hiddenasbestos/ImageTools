@@ -331,6 +331,16 @@ int Export( int argc, char** argv )
 		Info( "WARNING: Pixel format requires indices from 0 to %d.\n", uMaxPermittedIndex - 1 );
 	}
 
+	// Silently enabled tiled mode?
+	if ( PixelFormatIsPattern8x8( opt.dataOutFormat ) )
+	{
+		if ( !( imageInfo.width == 8 || opt.iTileW == 8 ) || !( imageInfo.height == 8 || opt.iTileH == 8 ) )
+		{
+			opt.iTileW = 8;
+			opt.iTileH = 8;
+		}
+	}
+
 	// Build output
 	Image output;
 	Info( "Exporting '%s' format raw image.\n", PixelFormatToString( opt.dataOutFormat ) );

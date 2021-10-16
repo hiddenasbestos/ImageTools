@@ -174,3 +174,23 @@ uint32_t PixelFormatMaxIndex( PixelFormat format )
 
 	}; // switch ( format )
 }
+
+//------------------------------------------------------------------------------
+// PixelFormatIsPattern8x8
+//------------------------------------------------------------------------------
+bool PixelFormatIsPattern8x8( PixelFormat format )
+{
+	switch ( format )
+	{
+
+	default:
+	case PixelFormat::UNKNOWN:
+		return false;
+
+	case PixelFormat::SEGA_VDP:
+	case PixelFormat::GAMEBOY:
+	case PixelFormat::NES:
+		return true;
+
+	}
+}

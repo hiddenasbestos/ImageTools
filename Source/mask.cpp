@@ -395,6 +395,16 @@ int Mask( int argc, char** argv )
 		Info( "Output is shifted right by %d pixels.\n", opt.iShift );
 	}
 
+	// Silently enabled tiled mode?
+	if ( PixelFormatIsPattern8x8( opt.dataOutFormat ) )
+	{
+		if ( !( imageInfo.width == 8 || opt.iTileW == 8 ) || !( imageInfo.height == 8 || opt.iTileH == 8 ) )
+		{
+			opt.iTileW = 8;
+			opt.iTileH = 8;
+		}
+	}
+
 	int tileCount;
 	if ( opt.iTileW )
 	{
